@@ -17,7 +17,7 @@ export const Scroll = styled.ScrollView`
 
 export const ButtonContainer = styled.View`
   position: absolute;
-  bottom: 20px; 
+  bottom: 20px;
   left: 0;
   right: 0;
   align-items: center;
