@@ -1,23 +1,36 @@
+// screens/Create/index.tsx
+import React from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { Button } from "../../components/Button";
-import { Container, Scroll,ButtonContainer } from "./styles";
-import { Baseboard } from '../../components/Baseboard';
+import { Container, Scroll, ContentContainer, FormContainer, InputLabel, ButtonContainer } from './styles';
 import { Input } from '../../components/Input';
+import { Select } from '../../components/Select';  
+import { Button } from '../../components/Button';
 
-export function Home() {
+export function Create() {
   return (
     <Container>
       <StatusBar style="light" />
-      {<Input/>}
-      {/*<Baseboard/>*/}
-      <Scroll>
-        {/* Conteúdo da tela */}
+
+      <Scroll showsVerticalScrollIndicator={false}>
+        <ContentContainer>
+         
+          <FormContainer>
+            <InputLabel>Tarefa</InputLabel>
+            <Input />
+          </FormContainer> 
+        
+          <FormContainer>
+            <InputLabel>Status</InputLabel>
+           <Select/>
+          </FormContainer>  
+
+        </ContentContainer>
+
+        <ButtonContainer>
+          <Button />
+        </ButtonContainer>
       </Scroll>
-      <ButtonContainer>
-        <Button />
-      </ButtonContainer>
+      
     </Container>
   );
 }
-
-

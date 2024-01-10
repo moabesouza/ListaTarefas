@@ -2,8 +2,8 @@
 import styled from 'styled-components/native';
 
 export const StyledInput = styled.TextInput`
-  width: 100%;
-  height: 40px;
+  width: 330px;
+  height: 56px;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
