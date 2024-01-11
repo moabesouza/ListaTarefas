@@ -1,6 +1,6 @@
 // components/Input/index.tsx
 import React from 'react';
-import { StyledInput, PlaceholderInput } from './styles';
+import { StyledInput } from './styles';
 
 export function Input() {
   return (

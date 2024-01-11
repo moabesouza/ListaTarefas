@@ -3,6 +3,7 @@ import React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { Container, Scroll, ContentContainer, FormContainer, InputLabel, ButtonContainer } from './styles';
 import { Input } from '../../components/Input';
+import { Textarea } from '../../components/Textarea';
 import { Select } from '../../components/Select';  
 import { Button } from '../../components/Button';
 
@@ -29,6 +30,11 @@ export function Create() {
            <Select/>
           </FormContainer>  
 
+          <FormContainer>
+           <InputLabel>Descrição</InputLabel>   
+           <Textarea/>    
+          </FormContainer>
+       
         </ContentContainer>
 
         <ButtonContainer>
