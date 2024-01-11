@@ -1,7 +1,7 @@
 // components/Select/index.tsx
 import React, { useState } from 'react';
 import { Picker } from '@react-native-picker/picker';
-import { StyledSelect, SelectText } from './styles';
+import { StyledSelect } from './styles';
 
 export function Select() {
   const [selectedValue, setSelectedValue] = useState('');
@@ -16,7 +16,7 @@ export function Select() {
         <Picker.Item label="Option 2" value="option2" />
         <Picker.Item label="Option 3" value="option3" />
       </Picker>
-      <SelectText>{selectedValue}</SelectText>
+    
     </StyledSelect>
   );
 }

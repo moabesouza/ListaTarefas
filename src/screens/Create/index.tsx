@@ -24,6 +24,11 @@ export function Create() {
            <Select/>
           </FormContainer>  
 
+          <FormContainer>
+            <InputLabel>Tipo</InputLabel>
+           <Select/>
+          </FormContainer>  
+
         </ContentContainer>
 
         <ButtonContainer>

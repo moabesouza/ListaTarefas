@@ -6,10 +6,11 @@ export const StyledInput = styled.TextInput`
   height: 56px;
   padding: 10px;
   border: 1px solid #ccc;
-  border-radius: 5px;
+  border-radius: 10px;
   margin-bottom: 10px;
   font-size: 16px;
   color: #333;
+  
 `;
 
 export const PlaceholderInput = styled.Text`

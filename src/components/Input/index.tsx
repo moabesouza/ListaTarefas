@@ -1,10 +1,12 @@
-// components/Input.tsx
+// components/Input/index.tsx
 import React from 'react';
 import { StyledInput, PlaceholderInput } from './styles';
 
 export function Input() {
   return (
-    <StyledInput>
-    </StyledInput>
+    <>
+      <StyledInput placeholder="Digite a tarefa" />
+   
+    </>
   );
 }
