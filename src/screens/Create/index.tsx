@@ -6,12 +6,13 @@ import { Input } from '../../components/Input';
 import { Textarea } from '../../components/Textarea';
 import { Select } from '../../components/Select';  
 import { Button } from '../../components/Button';
+import { Header } from '../../components/Header';
 
 export function Create() {
   return (
     <Container>
       <StatusBar style="light" />
-
+      <Header />
       <Scroll showsVerticalScrollIndicator={false}>
         <ContentContainer>
          
