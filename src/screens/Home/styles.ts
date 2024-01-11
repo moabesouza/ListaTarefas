@@ -13,6 +13,9 @@ export const Container = styled.SafeAreaView`
 export const Scroll = styled.ScrollView`
   flex: 1;
   width: 100%;
+  margin-top: 40%;
+  margin-bottom: 40%;
+  background-color: #F6F8FC;
 `;
 
 export const ButtonContainer = styled.View`
