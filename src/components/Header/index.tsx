@@ -1,4 +1,3 @@
-// components/Header/Header.tsx  
 import { HeaderStyle, HeaderTitle, HeaderIconContainer,  } from './styles';
 import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'

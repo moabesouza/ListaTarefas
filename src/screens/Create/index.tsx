@@ -1,4 +1,4 @@
-// screens/Create/index.tsx
+
 import React, { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { Container, Scroll, ContentContainer, FormContainer, InputLabel, ButtonContainer } from './styles';

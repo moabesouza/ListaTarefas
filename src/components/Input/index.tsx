@@ -1,4 +1,3 @@
-// components/Input/index.tsx
 import React from 'react';
 import { StyledInput } from './styles';
 

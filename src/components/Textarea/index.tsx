@@ -14,4 +14,4 @@ export function Textarea({ placeholder }: TextareaProps) {
   );
 }
 
-// components/Textarea/index.tsx
+
