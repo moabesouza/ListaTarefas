@@ -1,22 +1,30 @@
-// components/Select/index.tsx
-import React, { useState } from 'react';
+import React from 'react';
 import { Picker } from '@react-native-picker/picker';
 import { StyledSelect } from './styles';
 
-export function Select() {
-  const [selectedValue, setSelectedValue] = useState('');
+interface SelectProps<T> {
+  options: T[];
+  labelExtractor: (item: T) => string;
+  valueExtractor: (item: T) => string;
+  selectedValue: string;
+  onValueChange: (itemValue: string) => void;
+}
 
+export function Select<T>({
+  options,
+  labelExtractor,
+  valueExtractor,
+  selectedValue,
+  onValueChange,
+}: SelectProps<T>) {
   return (
     <StyledSelect>
-      <Picker
-        selectedValue={selectedValue}
-        onValueChange={(itemValue) => setSelectedValue(itemValue)}
-      >
-        <Picker.Item label="Option 1" value="option1" />
-        <Picker.Item label="Option 2" value="option2" />
-        <Picker.Item label="Option 3" value="option3" />
+      <Picker selectedValue={selectedValue} onValueChange={onValueChange}>
+        <Picker.Item label="---Selecione---" value="" /> 
+        {options.map((option, index) => (
+          <Picker.Item key={index} label={labelExtractor(option)} value={valueExtractor(option)} />
+        ))}
       </Picker>
-    
     </StyledSelect>
   );
 }
