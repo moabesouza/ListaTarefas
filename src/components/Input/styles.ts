@@ -1,6 +1,7 @@
 // components/styles.ts
 import styled from 'styled-components/native';
 
+
 export const StyledInput = styled.TextInput`
   width: 330px;
   height: 56px;

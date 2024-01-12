@@ -8,6 +8,8 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@expo-google-fonts/poppins": "^0.2.3",
+    "@expo/webpack-config": "^19.0.0",
     "@fortawesome/fontawesome-svg-core": "^6.5.1",
     "@fortawesome/free-brands-svg-icons": "^6.5.1",
     "@fortawesome/free-regular-svg-icons": "^6.5.1",
@@ -19,7 +21,8 @@
     "react": "18.2.0",
     "react-native": "0.72.6",
     "react-native-iconify": "^0.2.10",
-    "react-native-svg": "^14.1.0",
+    "react-native-svg": "13.9.0",
+    "react-native-web": "~0.19.6",
     "styled-components": "^6.1.8"
   },
   "devDependencies": {

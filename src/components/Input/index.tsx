@@ -2,11 +2,14 @@
 import React from 'react';
 import { StyledInput } from './styles';
 
-export function Input() {
+interface InputProps {
+  placeholder: string;
+}
+
+export function Input({ placeholder }: InputProps) {
   return (
     <>
-      <StyledInput placeholder="Digite a tarefa" />
-   
+      <StyledInput placeholder={placeholder} />
     </>
   );
 }

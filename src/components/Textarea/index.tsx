@@ -2,11 +2,16 @@
 import React, { useState } from 'react';
 import {StyledTextArea } from './styles';
 
-export function Textarea() {
+interface TextareaProps {
+  placeholder: string;
+}
 
+export function Textarea({ placeholder }: TextareaProps) {
   return (
     <>
-        <StyledTextArea placeholder="Digite a tarefa" />
+      <StyledTextArea placeholder={placeholder} />
       </>
   );
 }
+
+// components/Textarea/index.tsx
