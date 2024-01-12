@@ -17,5 +17,3 @@ export const HeaderTitle = styled.Text`
 `;
 
 
-
-// Adicione outros componentes estilizados conforme necessário
