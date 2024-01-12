@@ -9,9 +9,9 @@ import { Button } from '../../components/Button';
 import { Header } from '../../components/Header';
 
 export function Create() {
-  return (
+  return (   
     <Container>
-      <StatusBar style="light" />
+      <StatusBar translucent backgroundColor="transparent" />
       <Header />
       <Scroll showsVerticalScrollIndicator={false}>
         <ContentContainer>
