@@ -1,15 +1,19 @@
-import { HeaderStyle, HeaderTitle, HeaderIconContainer,  } from './styles';
-import React from 'react'
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
+import React from 'react';
+import { HeaderStyle, HeaderTitle, HeaderIconContainer } from './styles';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 
-export function Header() {
+interface HeaderProps {
+  title: string;
+}
+
+export function Header({ title }: HeaderProps) {
   return (
     <HeaderStyle>
       <HeaderIconContainer>
-      <FontAwesomeIcon icon={faArrowLeft} />
+        <FontAwesomeIcon icon={faArrowLeft} />
       </HeaderIconContainer>
-      <HeaderTitle>Cadastrar Tarefa</HeaderTitle>
+      <HeaderTitle>{title}</HeaderTitle>
     </HeaderStyle>
   );
 }
