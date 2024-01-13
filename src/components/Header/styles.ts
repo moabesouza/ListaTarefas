@@ -2,6 +2,7 @@
 import styled from 'styled-components/native';
 
 export const HeaderStyle = styled.View`
+  width: 100%;
   height: 110px;
   flex-shrink: 0;
   border-radius: 20px;
