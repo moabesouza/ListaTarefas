@@ -1,10 +1,11 @@
-// screens/List/index.tsx
 
 import React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { Container, Scroll, ContentContainer, FooterContainer } from './styles';
 import { Baseboard } from '../../components/Baseboard';
+import { Task } from '../../components/Task2'; 
 import { HeaderSearch } from '../../components/HeaderSearch';
+import { tarefaData } from '../../Data/tarefa';
 
 export function List() {
   return (
@@ -13,7 +14,9 @@ export function List() {
       <HeaderSearch/>
       <Scroll showsVerticalScrollIndicator={false}>
         <ContentContainer>
-          
+          {tarefaData.map((tarefa) => (
+            <Task key={tarefa.id} data={tarefa} />
+          ))}
         </ContentContainer>
       </Scroll>
       <FooterContainer>

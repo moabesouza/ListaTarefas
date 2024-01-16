@@ -6,7 +6,7 @@ import { Input } from '../../components/Input';
 import { Textarea } from '../../components/Textarea';
 import { Select } from '../../components/Select';
 import { Button } from '../../components/Button';
-import { HeaderSearch } from '../../components/HeaderSearch';
+import { Header } from '../../components/Header';
 import { TipoData } from '../../Data/tipo';
 import { StatusData } from '../../Data/status';
 
@@ -17,7 +17,7 @@ export function Create() {
   return (
     <Container>
       <StatusBar translucent backgroundColor="transparent" />
-      <HeaderSearch/>
+      <Header title="Editar Tarefa"/>
       <Scroll showsVerticalScrollIndicator={false}>
         <ContentContainer>
           <FormContainer>

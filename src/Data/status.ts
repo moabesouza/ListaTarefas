@@ -1,3 +1,5 @@
+import { IStatus } from "../interfaces/status";
+
 export const StatusData = [
     { descricao: 'Não Iniciado', id: '1' },
     { descricao: 'Cancelado', id: '2' },
@@ -5,3 +7,4 @@ export const StatusData = [
     { descricao: 'Finalizado', id: '4' },
     { descricao: 'Pausado', id: '5' },
   ];
+

@@ -20,7 +20,7 @@ export function Select<T>({
   return (
     <StyledSelect>
       <Picker selectedValue={selectedValue} onValueChange={onValueChange}>
-        <Picker.Item label="---Selecione---" value="" /> 
+        <Picker.Item label="--- Selecione ---" value="" /> 
         {options.map((option, index) => (
           <Picker.Item key={index} label={labelExtractor(option)} value={valueExtractor(option)} />
         ))}
