@@ -1,4 +1,3 @@
-// components/Header/styles.ts
 import styled from 'styled-components/native';
 
 export const HeaderStyle = styled.View`
@@ -17,22 +16,17 @@ export const HeaderTitle = styled.Text`
   font-weight: bold;
   color: #333;
   text-align: center;
-  position: absolute; 
-  left: 0; 
-  right: 0;
-  align-self: center;
+  flex: 1;
 `;
 
-
-export const HeaderIconContainer = styled.View`
+export const HeaderIconContainer = styled.TouchableOpacity`
   width: 24px;
-  height: 24px; 
-  margin-right: 10px;
+  height: 24px;
   border-radius: 12px;
   justify-content: center;
   align-items: center;
+  margin-right: 10px;
 `;
-
 
 export const HeaderIcon = styled.Image`
   width: 100%;

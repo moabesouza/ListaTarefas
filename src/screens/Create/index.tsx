@@ -17,7 +17,7 @@ export function Create() {
   return (
     <Container>
       <StatusBar translucent backgroundColor="transparent" />
-      <Header title="Editar Tarefa"/>
+      <Header title="Cadastrar Tarefa"/>
       <Scroll showsVerticalScrollIndicator={false}>
         <ContentContainer>
           <FormContainer>
