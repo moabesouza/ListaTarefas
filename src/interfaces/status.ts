@@ -1,6 +1,6 @@
 export interface IStatus {
     descricao: string;
-    id: number;
+    id: string;
   }
   
   

@@ -1,4 +1,5 @@
 import styled from 'styled-components/native';
+import { Platform } from "react-native";
 
 export const HeaderStyle = styled.View`
   width: 100%;
@@ -9,6 +10,7 @@ export const HeaderStyle = styled.View`
   background-color: #FFF;
   align-items: center;
   flex-direction: row;
+  padding-top: ${Platform.OS === "android" ? 56 : 16}px;
 `;
 
 export const HeaderTitle = styled.Text`
