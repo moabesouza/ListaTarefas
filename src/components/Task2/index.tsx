@@ -1,26 +1,43 @@
-// components/tasks/Task.tsx
-import React from "react";
-import { Text, View } from "react-native";
-import { Container, ContainerSecondary, ContainerEnd, IconsPoint, TaskText } from "./styles";
+import React, { useState } from 'react';
+import { View, Modal, TouchableOpacity, Text } from 'react-native';
+import { Container, ContainerSecondary, ContainerEnd, IconsPoint, TaskText, ModalContainer, ModalContent, OptionText, CloseOptionsButton, ModalHeader, ModalTitle } from "./styles";
 import { Entypo, Feather } from '@expo/vector-icons';
 import { ITarefa } from "../../interfaces/tarefa";
 import { getStatusDescription, getTipoDescription } from "../../Data/tarefa";
+import { faCircleXmark } from '@fortawesome/free-regular-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 
-interface TaskProps {
-  data: ITarefa;
-}
-
-export const Task: React.FC<TaskProps> = ({ data }) => {
+export const Task = ({ data }: { data: ITarefa }) => {
   const statusColor = getStatusColor(data.status);
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
-  console.log("Status:", data.status);
+  const toggleModal = () => {
+    setIsModalVisible(!isModalVisible);
+  };
+
+  const handleOptionSelect = (option: string) => {
+    console.log(`Opção selecionada: ${option}`);
+    toggleModal();
+  };
+
+  const handleEdit = () => {
+    console.log("Editar option selected");  
+    toggleModal();
+  };
+
+  const handleDelete = () => {
+    console.log("Excluir option selected");
+    toggleModal();
+  };
 
   return (
     <Container style={{ backgroundColor: statusColor }}>
       <ContainerSecondary>
         <TaskText>{data.nome}</TaskText>
         <IconsPoint>
-          <Entypo name="dots-three-horizontal" size={20} color="black" />
+          <TouchableOpacity onPress={toggleModal}>
+            <Entypo name="dots-three-horizontal" size={20} color="black" />
+          </TouchableOpacity>
         </IconsPoint>
       </ContainerSecondary>
       <ContainerEnd>
@@ -29,6 +46,33 @@ export const Task: React.FC<TaskProps> = ({ data }) => {
           {getStatusDescription(data.status)} - {getTipoDescription(data.tipo)}
         </Text>
       </ContainerEnd>
+
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={isModalVisible}
+        onRequestClose={toggleModal}
+      >
+        <ModalContainer>
+          <ModalContent>
+            <ModalHeader>
+              <ModalTitle>Opções</ModalTitle>
+              <CloseOptionsButton onPress={toggleModal}>
+                <FontAwesomeIcon icon={faCircleXmark} size={20} color="#333" />
+              </CloseOptionsButton>
+            </ModalHeader>
+            <TouchableOpacity onPress={handleEdit}>
+              <OptionText>Detalhes</OptionText>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={handleEdit}>
+              <OptionText>Editar</OptionText>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={handleDelete}>
+              <OptionText>Excluir</OptionText>
+            </TouchableOpacity>
+          </ModalContent>
+        </ModalContainer>
+      </Modal>
     </Container>
   );
 };
@@ -48,4 +92,4 @@ function getStatusColor(statusId: string): string {
     default:
       return '#000000';
   }
-};
+}

@@ -1,6 +1,6 @@
 import { Text, Image } from "react-native";
 import { TaskProps } from "../../screens/Home";
-import { Container, ContainerSecondary, ContainerEnd, IconsPoint, TaskText } from "./styles";
+import { Container, ContainerSecondary, ContainerEnd, IconsPoint, TaskText,  } from "./styles";
 import { Entypo, Feather } from '@expo/vector-icons';
 
 export function Task({ id, title, done }: TaskProps) {
