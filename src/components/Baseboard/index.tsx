@@ -7,7 +7,8 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 type RootStackParamList = {
   Home: undefined;
-  Create: undefined; 
+  Create: undefined;
+  Detail: undefined;
 };
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList, 'Create'>;
@@ -21,7 +22,7 @@ export function Baseboard() {
         <AntDesign name="pluscircle" size={60} color="#646FD4" />
       </ButtonCenter>
       <SecondaryFooter>
-        <ButtonLeft >
+        <ButtonLeft onPress={() => navigation.navigate('Detail')}>
           <AntDesign name="dashboard" size={25} color="#646FD4" />
           <Text style={{ color: '#646FD4', marginTop: 5 }}>Dashboard</Text>
         </ButtonLeft>
