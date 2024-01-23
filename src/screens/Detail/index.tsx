@@ -1,14 +1,28 @@
+import React from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { ContainerMain } from "./styles";
+import { Container, Scroll, ContentContainer, FooterContainer } from './styles';
+import { Baseboard } from '../../components/Baseboard';
 import { Graph } from '../../components/Graph';
 import { Table } from '../../components/Table';
+import { Header } from '../../components/Header';
 
-export  function Detail() {
+export function Detail() {
   return (
-    <ContainerMain>
-      <StatusBar style="auto" />
-      <Table/>
-      <Graph/>
-    </ContainerMain>
+    <Container>
+      <StatusBar translucent backgroundColor="transparent" />
+      <Header title="Dashboard"/>
+      <Scroll showsVerticalScrollIndicator={false}>
+        <ContentContainer>
+        <Table/>
+        <Graph/>
+        </ContentContainer>
+     
+       
+   
+      </Scroll>
+      <FooterContainer>
+        <Baseboard />
+      </FooterContainer>
+    </Container>
   );
 }

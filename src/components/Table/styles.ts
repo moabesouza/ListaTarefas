@@ -1,23 +1,19 @@
 import styled from "styled-components/native";
 
-export const Container = styled.View`
-  width: 100%;
-  height: 180px;
-  flex-direction: column;
-  align-items: center;
-  background-color: #304163;
-  overflow: hidden;
+export const Container = styled.SafeAreaView`
+  flex: 1; 
 `;
 
 export const ContainerRow = styled.View`
   width: 100%;
   height: 90px;
-  background-color: white;
+  flex-direction: row; 
+  justify-content: space-between; 
 `;
+
 
 export const ContainerLine = styled.View`
   flex: 1;
-  background-color: #A3AED2;
   flex-direction: row;
 `;
 
@@ -35,7 +31,7 @@ export const TaskTextNum = styled.Text`
 
 export const TaskRow = styled.TouchableOpacity`
   flex: 1;
-  background-color: #F6F8FC;
+  background-color: white;
   justify-content: center;
   align-items: center;
   flex-direction: row;

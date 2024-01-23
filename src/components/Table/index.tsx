@@ -1,9 +1,11 @@
-import { Container, ContainerLine,ContainerRow, TaskRow, TaskNum, TaskText,TaskTextNum } from "./styles";
-import { Entypo, MaterialIcons, FontAwesome  } from '@expo/vector-icons';
 
+import { Container, ContainerLine, ContainerRow, TaskRow, TaskNum, TaskText, TaskTextNum } from "./styles";
+import { Entypo, MaterialIcons, FontAwesome  } from '@expo/vector-icons';
+import { Header } from '../../components/Header';
 export function Table() {
   return (
     <Container>
+    
       <ContainerRow>
         <ContainerLine>
           <TaskRow>

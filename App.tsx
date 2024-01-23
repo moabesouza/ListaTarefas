@@ -21,7 +21,7 @@ export default function App() {
       <RootStack.Navigator initialRouteName="List">
         <RootStack.Screen name="List" component={List} options={{ headerShown: false }} />
         <RootStack.Screen name="Create" component={Create} options={{ headerShown: false }} />
-        <RootStack.Screen name="Detail" component={Detail} options={{ headerShown: true }} />
+        <RootStack.Screen name="Detail" component={Detail} options={{ headerShown: false }} />
       </RootStack.Navigator>
     </NavigationContainer>
   );
