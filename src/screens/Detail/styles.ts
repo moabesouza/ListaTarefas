@@ -11,11 +11,13 @@ export const Container = styled.SafeAreaView`
 export const Scroll = styled.ScrollView`
   flex: 1;
   padding: 16px;
+
 `;
 
 export const ContentContainer = styled.View`
   margin-bottom: 100px;
    padding-top: 16px; 
+   
 `;
 
 export const FooterContainer = styled.View`

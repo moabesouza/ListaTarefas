@@ -1,21 +1,43 @@
 import React from 'react';
-import { Container, Title } from "./styles";
-import { VictoryPie } from 'victory-native';
+import { View, Text } from 'react-native';
+import { PieChart } from 'react-native-chart-kit';
+import { Title } from "./styles";
 
 export function Graph() {
-    return (
-        <Container>
-            <Title>Gráfico por status</Title>
-            <VictoryPie
-                width={200}
-                height={200}
-                colorScale={["#FBA13A", "#FF004B", "#9747FF"]}
-                data={[
-                    { x: "Aberto", y: 70 },
-                    { x: "Cancelado", y: 15 },
-                    { x: "Espera", y: 15 }
-                ]}
-            />
-        </Container>
-    );
+  const chartData = [
+    { name: "Em Aberto", population: 70, color: "#FBA13A", legendFontColor: "#333", legendFontSize: 12 },
+    { name: "Cancelado", population: 15, color: "#FF004B", legendFontColor: "#333", legendFontSize: 12 },
+    { name: "Pausado", population: 15, color: "#9747FF", legendFontColor: "#333", legendFontSize: 12 },
+  ];
+
+  const containerStyle = {
+    marginLeft: 10,
+    marginRight: 10,
+    backgroundColor: 'white',
+    padding: 10,
+    borderRadius: 25,
+    marginTop: 20,
+    borderBottomWidth: 1,  // Adicione esta linha para adicionar uma borda inferior
+    borderBottomColor: '#ddd',  // Cor da borda inferior
+  };
+
+  return (
+    <View style={containerStyle}>
+      <Title style={{ textAlign: 'center', marginBottom: 10 }}>Gráfico por status</Title>
+      <PieChart
+        data={chartData}
+        width={300}
+        height={150}
+        chartConfig={{
+          backgroundGradientFrom: "#1E2923",
+          backgroundGradientTo: "#08130D",
+          color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+        }}
+        accessor="population"
+        backgroundColor="transparent"
+        paddingLeft="20"
+        absolute
+      />
+    </View>
+  );
 }

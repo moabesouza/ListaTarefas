@@ -14,11 +14,8 @@ export function Detail() {
       <Scroll showsVerticalScrollIndicator={false}>
         <ContentContainer>
         <Table/>
-        <Graph/>
+         <Graph/>
         </ContentContainer>
-     
-       
-   
       </Scroll>
       <FooterContainer>
         <Baseboard />
