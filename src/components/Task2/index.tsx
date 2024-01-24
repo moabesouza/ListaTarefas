@@ -1,19 +1,44 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { View, Modal, TouchableOpacity, Text } from 'react-native';
-import { Container, ContainerSecondary, ContainerEnd, IconsPoint, TaskText, ModalContainer, ModalContent, OptionText, CloseOptionsButton, ModalHeader, ModalTitle } from "./styles";
+
+import {
+  Container,
+  ContainerSecondary,
+  ContainerEnd,
+  IconsPoint,
+  TaskText,
+  ModalContainer,
+  ModalContent,
+  OptionText,
+  CloseOptionsButton,
+  ModalHeader,
+  ModalTitle
+} from './styles';
 import { Entypo, Feather } from '@expo/vector-icons';
-import { ITarefa } from "../../interfaces/tarefa";
-import { getStatusDescription, getTipoDescription } from "../../Data/tarefa";
+import { ITarefa } from '../../interfaces/tarefa';
+import { getStatusDescription, getTipoDescription } from '../../Data/tarefa';
 import { faCircleXmark } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { useTaskContext } from '../../context/taskContext';
+
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+
+type RootStackParamList = {
+  Home: undefined;
+  Create: undefined;
+  Edit: undefined;
+  Dashboard: undefined;
+  List: undefined;
+};
+
+type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
 export const Task = ({ data }: { data: ITarefa }) => {
-  const statusColor = getStatusColor(data.status);
-  const [isModalVisible, setIsModalVisible] = useState(false);
+  const { isModalVisible, toggleModal, selectTask } = useTaskContext();
+  const navigation = useNavigation<NavigationProp>();
 
-  const toggleModal = () => {
-    setIsModalVisible(!isModalVisible);
-  };
+  const statusColor = getStatusColor(data.status);
 
   const handleOptionSelect = (option: string) => {
     console.log(`Opção selecionada: ${option}`);
@@ -21,8 +46,10 @@ export const Task = ({ data }: { data: ITarefa }) => {
   };
 
   const handleEdit = () => {
-    console.log("Editar option selected");  
+    console.log("Editar option selected");
+    selectTask(data);
     toggleModal();
+    navigation.navigate('Edit'); 
   };
 
   const handleDelete = () => {

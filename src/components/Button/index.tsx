@@ -1,9 +1,14 @@
-import { ButtonText , StyledButton } from "./styles";
 
-export function Button() {
-    return (
-      <StyledButton onPress={() => console.log("Button pressed")}>
-        <ButtonText>Salvar</ButtonText>
-      </StyledButton>
-    );
+import { StyledButton, ButtonText } from './styles';
+
+interface ButtonProps {
+  onPress: () => void;
+}
+
+export function Button({ onPress }: ButtonProps) {
+  return (
+    <StyledButton onPress={onPress}>
+      <ButtonText>Salvar</ButtonText>
+    </StyledButton>
+  );
 }
