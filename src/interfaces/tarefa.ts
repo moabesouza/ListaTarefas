@@ -3,4 +3,5 @@ export interface ITarefa {
     nome: string;
     tipo: string;
     status: string;
+    descricao: string;
   }

@@ -6,7 +6,7 @@ import { Graph } from '../../components/Graph';
 import { Table } from '../../components/Table';
 import { Header } from '../../components/Header';
 
-export function Detail() {
+export function Dashboard() {
   return (
     <Container>
       <StatusBar translucent backgroundColor="transparent" />
