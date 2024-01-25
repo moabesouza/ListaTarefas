@@ -17,8 +17,8 @@ export function Graph() {
     padding: 10,
     borderRadius: 25,
     marginTop: 20,
-    borderBottomWidth: 1,  // Adicione esta linha para adicionar uma borda inferior
-    borderBottomColor: '#ddd',  // Cor da borda inferior
+    borderBottomWidth: 1,  
+    borderBottomColor: '#ddd',  
   };
 
   return (

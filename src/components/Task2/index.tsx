@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState } from 'react';
 import { View, Modal, TouchableOpacity, Text } from 'react-native';
 import { Container, ContainerSecondary, ContainerEnd, IconsPoint, TaskText, ModalContainer, ModalContent, OptionText, CloseOptionsButton, ModalHeader, ModalTitle } from './styles';
 import { Entypo, Feather } from '@expo/vector-icons';
@@ -19,8 +19,9 @@ type TaskProps = {
 type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
 export const Task: React.FC<TaskProps> = ({ taskId }) => {
-  const { isModalVisible, toggleModal, selectTask, deleteTask, getTaskById } = useTaskContext();
+  const { selectTask, deleteTask, getTaskById } = useTaskContext();
   const navigation = useNavigation<NavigationProp>();
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
   const task = getTaskById(taskId);
 
@@ -30,13 +31,11 @@ export const Task: React.FC<TaskProps> = ({ taskId }) => {
 
   const statusColor = getStatusColor(task.status as statusEnum);
 
-  
-
   const handleEdit = () => {
     console.log("Editar option selected");
     selectTask(task);
     toggleModal();
-    navigation.navigate('Edit'); 
+    navigation.navigate('Edit');
   };
 
   const handleDelete = async () => {
@@ -44,6 +43,10 @@ export const Task: React.FC<TaskProps> = ({ taskId }) => {
     await deleteTask(task.id);
     console.log("Task deleted");
     toggleModal();
+  };
+
+  const toggleModal = () => {
+    setIsModalVisible(!isModalVisible);
   };
 
   return (

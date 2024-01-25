@@ -14,10 +14,6 @@ interface TaskContextProps {
   getTaskById: (taskId: number) => ITarefa | undefined;
   updateTask: (updatedTask: ITarefa) => void;
   updateTasks: (updatedTasks: ITarefa[]) => void;
-<<<<<<< HEAD
-=======
-  
->>>>>>> dcd428f (refatoração para o funcionamento da edição das tasks)
 }
 
 export const InternalTaskContext = createContext<TaskContextProps | undefined>(undefined);
@@ -40,12 +36,7 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({ children }) => {
   const [tasks, setTasks] = useState<ITarefa[]>([]);
   const [selectedTaskId, setSelectedTaskId] = useState<number | null>(null);
 
-<<<<<<< HEAD
  
-=======
-
-
->>>>>>> dcd428f (refatoração para o funcionamento da edição das tasks)
   
   useEffect(() => {
     const fetchTasks = async () => {
@@ -61,9 +52,6 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({ children }) => {
 
     fetchTasks();
   }, []);
-
-
-
 
   const updateTasks = async (updatedTasks: ITarefa[]) => {
     try {
@@ -85,11 +73,7 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({ children }) => {
   };
   
 
-<<<<<<< HEAD
   const toggleModal = (taskId?: number) => {
-=======
-  const toggleModal = () => {
->>>>>>> dcd428f (refatoração para o funcionamento da edição das tasks)
     setIsModalVisible(!isModalVisible);
     setSelectedTaskId(taskId ?? null);
   };
