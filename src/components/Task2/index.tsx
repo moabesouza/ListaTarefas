@@ -30,10 +30,7 @@ export const Task: React.FC<TaskProps> = ({ taskId }) => {
 
   const statusColor = getStatusColor(task.status as statusEnum);
 
-  const handleOptionSelect = (option: string) => {
-    console.log(`Opção selecionada: ${option}`);
-    toggleModal();
-  };
+  
 
   const handleEdit = () => {
     console.log("Editar option selected");
