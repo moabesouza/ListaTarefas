@@ -1,44 +1,34 @@
 import React from 'react';
 import { View, Modal, TouchableOpacity, Text } from 'react-native';
-
-import {
-  Container,
-  ContainerSecondary,
-  ContainerEnd,
-  IconsPoint,
-  TaskText,
-  ModalContainer,
-  ModalContent,
-  OptionText,
-  CloseOptionsButton,
-  ModalHeader,
-  ModalTitle
-} from './styles';
+import { Container, ContainerSecondary, ContainerEnd, IconsPoint, TaskText, ModalContainer, ModalContent, OptionText, CloseOptionsButton, ModalHeader, ModalTitle } from './styles';
 import { Entypo, Feather } from '@expo/vector-icons';
-import { ITarefa } from '../../interfaces/tarefa';
-import { getStatusDescription, getTipoDescription } from '../../Data/tarefa';
-import { faCircleXmark } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { faCircle as faCircleXmark } from '@fortawesome/free-regular-svg-icons'; 
 import { useTaskContext } from '../../context/taskContext';
-
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootStackParamList } from '../../types/navigation';
+import { getStatusColor, getStatusDescription, getTipoDescription } from '../../utils/statusUtils';
+import { statusEnum, tipoEnum } from '../../Enum/enums';
 
-type RootStackParamList = {
-  Home: undefined;
-  Create: undefined;
-  Edit: undefined;
-  Dashboard: undefined;
-  List: undefined;
+
+type TaskProps = {
+  taskId: number; 
 };
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
-export const Task = ({ data }: { data: ITarefa }) => {
-  const { isModalVisible, toggleModal, selectTask } = useTaskContext();
+export const Task: React.FC<TaskProps> = ({ taskId }) => {
+  const { isModalVisible, toggleModal, selectTask, deleteTask, getTaskById } = useTaskContext();
   const navigation = useNavigation<NavigationProp>();
 
-  const statusColor = getStatusColor(data.status);
+  const task = getTaskById(taskId);
+
+  if (!task) {
+    return null;
+  }
+
+  const statusColor = getStatusColor(task.status as statusEnum);
 
   const handleOptionSelect = (option: string) => {
     console.log(`Opção selecionada: ${option}`);
@@ -47,20 +37,22 @@ export const Task = ({ data }: { data: ITarefa }) => {
 
   const handleEdit = () => {
     console.log("Editar option selected");
-    selectTask(data);
+    selectTask(task);
     toggleModal();
     navigation.navigate('Edit'); 
   };
 
-  const handleDelete = () => {
-    console.log("Excluir option selected");
+  const handleDelete = async () => {
+    console.log("Deleting task with id:", task.id);
+    await deleteTask(task.id);
+    console.log("Task deleted");
     toggleModal();
   };
 
   return (
     <Container style={{ backgroundColor: statusColor }}>
       <ContainerSecondary>
-        <TaskText>{data.nome}</TaskText>
+        <TaskText>{task.nome}</TaskText>
         <IconsPoint>
           <TouchableOpacity onPress={toggleModal}>
             <Entypo name="dots-three-horizontal" size={20} color="black" />
@@ -70,7 +62,7 @@ export const Task = ({ data }: { data: ITarefa }) => {
       <ContainerEnd>
         <Feather name="info" size={15} color={statusColor} style={{ marginTop: -30, marginRight: 5 }} />
         <Text style={{ color: '#4E8D7C', marginTop: -30 }}>
-          {getStatusDescription(data.status)} - {getTipoDescription(data.tipo)}
+          {getStatusDescription(task.status as statusEnum)} - {getTipoDescription(task.tipo as tipoEnum)}
         </Text>
       </ContainerEnd>
 
@@ -103,20 +95,3 @@ export const Task = ({ data }: { data: ITarefa }) => {
     </Container>
   );
 };
-
-function getStatusColor(statusId: string): string {
-  switch (statusId) {
-    case '1':
-      return '#9747FF';
-    case '2':
-      return '#FF004B';
-    case '3':
-      return '#FBA13A';
-    case '4':
-      return '#00D43B';
-    case '5':
-      return '#FBFF47';
-    default:
-      return '#000000';
-  }
-}
