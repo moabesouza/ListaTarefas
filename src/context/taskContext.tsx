@@ -36,8 +36,6 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({ children }) => {
   const [tasks, setTasks] = useState<ITarefa[]>([]);
   const [selectedTaskId, setSelectedTaskId] = useState<number | null>(null);
 
- 
-  
   useEffect(() => {
     const fetchTasks = async () => {
       try {

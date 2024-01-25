@@ -17,7 +17,6 @@ export function Create() {
   const [selectedTipo, setSelectedTipo] = useState('');
   const [taskName, setTaskName] = useState('');
   const [taskDescription, setTaskDescription] = useState('');
-  const [tasks, setTasks] = useState<ITarefa[]>([]); 
 
   const handleCreateTask = async () => {
     try {
@@ -30,9 +29,6 @@ export function Create() {
       };
 
       await addTask(newTask);
-
-    
-      setTasks((prevTasks) => [...prevTasks, newTask]);
 
       setTaskName('');
       setSelectedStatus('');
@@ -93,7 +89,7 @@ export function Create() {
         </ContentContainer>
 
         <ButtonContainer>
-          <Button onPress={handleCreateTask}  />
+          <Button onPress={handleCreateTask} />
         </ButtonContainer>
       </Scroll>
     </Container>
