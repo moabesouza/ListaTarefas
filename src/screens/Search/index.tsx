@@ -16,7 +16,7 @@ export interface TaskProps {
 const TASKS = [
   {
     id: 1,
-    title: "Estudar React Native",
+    title: "Pagar farmácia",
     done: false,
   },
   {
@@ -32,7 +32,8 @@ const TASKS = [
 ];
 
 export function Search() {
-  const [tasks, setTasks] = useState(TASKS);
+  
+  const [tasks, setTasks] = useState("");
   const [taskName, setTaskName] = useState("");
   const [count, setCount] = useState(3);
 

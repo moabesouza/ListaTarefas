@@ -1,46 +1,53 @@
 import styled from "styled-components/native";
 
-export const Container = styled.SafeAreaView`
+export const Container = styled.TouchableOpacity`
   width: 100%;
-  height: 93px;
-  justify-content: center;
-  align-items: center;
-  background-color: #FF004B;
+  height: 80px;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: start;
+  background-color: #9747FF;
   border-radius: 20px;
-  padding-bottom: 10%;
+  overflow: hidden;
+`;
+
+export const TaskText = styled.Text`
+  padding-top: 30px;
+  color: black;
+  font-size: 16px;
+  font-weight: 500;
+  padding-left: 20px;
+`;
+export const TaskTextStatus = styled.Text`
+  color: grey;
+  font-size: 16px;
+  font-weight: 500;
+  padding-left: 12px;
+`;
+
+export const TaskDelete = styled.TouchableOpacity`
+  width: 56px;
+  height: 56px;
+  justify-content: start;
+  align-items: center;
 `;
 
 export const ContainerSecondary = styled.SafeAreaView`
   width: 100%;
-  height: 40px;
+  height: 80%;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   background-color: #ffffff;
   overflow: hidden;
-  border-top-right-radius: 20px;
-  border-top-left-radius: 20px;
 `;
 
 export const ContainerEnd = styled.SafeAreaView`
-  width: 100%;
-  height: 30px;
-  flex-direction: row;
-  align-items: center;
-  background-color: #FFFFFF;
-  padding: 0 20px;
-`;
-
-export const TaskText = styled.Text`
-  font-size: 21px;
+  width: 80%;
+  height: 40%;
+  align-items: end;
+  position: absolute;
+  font-size: 18px;
   font-weight: 500;
-  padding: 0 16px;
-`;
-
-export const IconsPoint = styled.TouchableOpacity`
-  width: 56px;
-  height: 56px;
-  border-radius: 20px;
-  justify-content: center;
-  align-items: center;
+  padding-left: 14px;
 `;
