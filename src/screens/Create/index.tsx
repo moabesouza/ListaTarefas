@@ -8,10 +8,40 @@ import { Button } from '../../components/Button';
 import { Header } from '../../components/Header';
 import { TipoData } from '../../Data/tipo';
 import { StatusData } from '../../Data/status';
+import { useTaskContext } from '../../context/taskContext';
 
 export function Create() {
+  
+  const { addTask } = useTaskContext();
   const [selectedStatus, setSelectedStatus] = useState('');
   const [selectedTipo, setSelectedTipo] = useState('');
+  const [taskName, setTaskName] = useState('');
+  const [taskDescription, setTaskDescription] = useState('');
+
+  const handleCreateTask = async () => {
+    try {
+      const newTask = {
+        id: Date.now(),
+        nome: taskName,
+        tipo: selectedTipo,
+        status: selectedStatus,
+        descricao: taskDescription,
+      };
+
+      await addTask(newTask);
+
+      setTaskName('');
+      setSelectedStatus('');
+      setSelectedTipo('');
+      setTaskDescription('');
+
+     
+      console.log('Tarefa adicionada com sucesso!');
+    } catch (error) {
+  
+      console.error('Erro ao adicionar tarefa:', error);
+    }
+  };
 
   return (
     <Container>
@@ -21,7 +51,11 @@ export function Create() {
         <ContentContainer>
           <FormContainer>
             <InputLabel>Tarefa</InputLabel>
-            <Input placeholder="Digite a tarefa"/>
+            <Input
+              placeholder="Digite a tarefa"
+              value={taskName}
+              onChangeText={(text) => setTaskName(text)}
+            />
           </FormContainer>
 
           <FormContainer>
@@ -48,12 +82,16 @@ export function Create() {
 
           <FormContainer>
             <InputLabel>Descrição</InputLabel>
-            <Textarea placeholder="Digite a descrição"/>
+            <Textarea
+              placeholder="Digite a descrição"
+              value={taskDescription}
+              onChangeText={(text) => setTaskDescription(text)}
+            />
           </FormContainer>
         </ContentContainer>
 
         <ButtonContainer>
-          <Button />
+          <Button onPress={handleCreateTask}  />
         </ButtonContainer>
       </Scroll>
     </Container>
