@@ -1,5 +1,7 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 import { ITarefa } from "../interfaces/tarefa";
+
+
 interface TaskContextProps {
   isModalVisible: boolean;
   toggleModal: () => void;

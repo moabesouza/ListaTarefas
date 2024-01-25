@@ -10,6 +10,8 @@ type RootStackParamList = {
   Create: undefined;
   Dashboard: undefined;
   List: undefined;
+  Detail: undefined;
+  Search: undefined;
 };
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
@@ -27,7 +29,7 @@ export function Baseboard() {
           <AntDesign name="dashboard" size={25} color="#646FD4" />
           <Text style={{ color: '#646FD4', marginTop: 5 }}>Dashboard</Text>
         </ButtonLeft >
-        <ButtonRight onPress={() => navigation.navigate('List')}>
+        <ButtonRight onPress={() => navigation.navigate('Search')}>
           <AntDesign name="profile" size={25} color="#646FD4" />
           <Text style={{ color: '#646FD4', marginTop: 5 }}>Tarefas</Text>
         </ButtonRight>

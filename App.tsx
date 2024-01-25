@@ -7,6 +7,7 @@ import { List } from "./src/screens/List";
 import { Dashboard } from './src/screens/Dashboard';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { Search } from './src/screens/Search';
 
 type RootStackParamList = {
   Home: undefined;
@@ -15,6 +16,7 @@ type RootStackParamList = {
   Edit: undefined;
   Detail: undefined;
   Dashboard: undefined;
+  Search: undefined;
 };
 
 const RootStack = createNativeStackNavigator<RootStackParamList>();
@@ -28,6 +30,7 @@ export default function App() {
           <RootStack.Screen name="Edit" component={Edit} options={{ headerShown: false }} />
           <RootStack.Screen name="Create" component={Create} options={{ headerShown: false }} />
           <RootStack.Screen name="Dashboard" component={Dashboard} options={{ headerShown: false }} />
+          <RootStack.Screen name="Search" component={Search} options={{ headerShown: false }} />
         </RootStack.Navigator>
       </TaskProvider>
     </NavigationContainer>
