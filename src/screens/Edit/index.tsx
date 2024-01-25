@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { Container, Scroll, ContentContainer, FormContainer, InputLabel, ButtonContainer } from './styles';
 import { Input } from '../../components/Input';
@@ -11,18 +11,21 @@ import { StatusData } from '../../Data/status';
 import { useTaskContext } from '../../context/taskContext';
 import { ITarefa } from '../../interfaces/tarefa';
 
-
 export function Edit() {
-  const { selectedTask, toggleModal } = useTaskContext();
+  const { selectedTask, updateTask } = useTaskContext();
   const [editedTask, setEditedTask] = useState<ITarefa>(selectedTask || { id: 0, nome: '', tipo: '', status: '', descricao: '' });
+
+  useEffect(() => {
+    setEditedTask(selectedTask || { id: 0, nome: '', tipo: '', status: '', descricao: '' });
+  }, [selectedTask]);
 
   const handleInputChange = (fieldName: keyof ITarefa, value: string) => {
     setEditedTask((prevTask) => ({ ...prevTask, [fieldName]: value }));
   };
 
   const handleSave = () => {
-    console.log('Tarefa editada:', editedTask);
-    toggleModal();
+    updateTask(editedTask);
+   
   };
 
   return (

@@ -9,18 +9,19 @@ import { Header } from '../../components/Header';
 import { TipoData } from '../../Data/tipo';
 import { StatusData } from '../../Data/status';
 import { useTaskContext } from '../../context/taskContext';
+import { ITarefa } from '../../interfaces/tarefa';
 
 export function Create() {
-  
   const { addTask } = useTaskContext();
   const [selectedStatus, setSelectedStatus] = useState('');
   const [selectedTipo, setSelectedTipo] = useState('');
   const [taskName, setTaskName] = useState('');
   const [taskDescription, setTaskDescription] = useState('');
+  const [tasks, setTasks] = useState<ITarefa[]>([]); 
 
   const handleCreateTask = async () => {
     try {
-      const newTask = {
+      const newTask: ITarefa = {
         id: Date.now(),
         nome: taskName,
         tipo: selectedTipo,
@@ -30,15 +31,16 @@ export function Create() {
 
       await addTask(newTask);
 
+    
+      setTasks((prevTasks) => [...prevTasks, newTask]);
+
       setTaskName('');
       setSelectedStatus('');
       setSelectedTipo('');
       setTaskDescription('');
 
-     
       console.log('Tarefa adicionada com sucesso!');
     } catch (error) {
-  
       console.error('Erro ao adicionar tarefa:', error);
     }
   };
