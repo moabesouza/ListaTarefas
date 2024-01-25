@@ -105,8 +105,6 @@ const addTask = async (newTask: ITarefa): Promise<void> => {
   }
 };
 
-  
-
   const getTaskById = (taskId: number): ITarefa | undefined => {
     return tasks.find(task => task.id === taskId);
   };
