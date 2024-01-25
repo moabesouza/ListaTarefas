@@ -1,4 +1,3 @@
-import { IStatus } from "../interfaces/status";
 
 export const StatusData = [
     { descricao: 'Não Iniciado', id: '1' },

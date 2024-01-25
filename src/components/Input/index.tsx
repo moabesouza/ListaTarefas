@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { TextInputProps } from 'react-native';
 import { StyledInput } from './styles';
