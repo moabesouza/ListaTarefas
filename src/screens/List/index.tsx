@@ -1,22 +1,43 @@
-
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { Container, Scroll, ContentContainer, FooterContainer } from './styles';
 import { Baseboard } from '../../components/Baseboard';
-import { Task } from '../../components/Task2'; 
+import { Task } from '../../components/Task2';
 import { HeaderSearch } from '../../components/HeaderSearch';
-import { tarefaData } from '../../Data/tarefa';
+import { ITarefa } from '../../interfaces/tarefa'; 
+import AsyncStorage from '@react-native-async-storage/async-storage'; 
 
 export function List() {
+  const [tasks, setTasks] = useState<ITarefa[]>([]);
+
+  useEffect(() => {
+    const loadTasks = async () => {
+      try {
+        console.log('Carregando tarefas...');
+        const storedTasks = await AsyncStorage.getItem('tasks');
+        console.log('Tarefas armazenadas:', storedTasks);
+  
+        const loadedTasks = storedTasks ? JSON.parse(storedTasks) : [];
+        console.log('Tarefas carregadas:', loadedTasks);
+  
+        setTasks(loadedTasks);
+      } catch (error) {
+        console.error('Erro ao carregar tarefas:', error);
+      }
+    };
+  
+    loadTasks();
+  }, []);
+
   return (
     <Container>
       <StatusBar translucent backgroundColor="transparent" />
-      <HeaderSearch/>
+      <HeaderSearch />
       <Scroll showsVerticalScrollIndicator={false}>
         <ContentContainer>
-          {tarefaData.map((tarefa) => (
-            <Task key={tarefa.id} data={tarefa} />
-          ))}
+        {tasks.map((tarefa) => (
+          <Task key={tarefa.id} taskId={tarefa.id} />
+        ))}
         </ContentContainer>
       </Scroll>
       <FooterContainer>
