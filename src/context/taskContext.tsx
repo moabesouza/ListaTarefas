@@ -1,107 +1,19 @@
-import React, { createContext, useContext, useEffect, useState, ReactNode } from 'react';
+import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
 import { ITarefa } from "../interfaces/tarefa";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { Alert } from "react-native";
-
-interface TaskProps {
-  id: number;
-  title: string;
-  done: boolean;
-}
-
-interface TaskContextPropsSearch {
-  task: TaskProps;
-  tasks: TaskProps[];
-  selectTask: (task: TaskProps) => void;
-  clearTask: () => void;
-  createTask: (title: string) => void;
-}
-
-interface TaskProviderPropsSearch {
-  children: ReactNode;
-}
-
-export const TaskContext = createContext<TaskContextPropsSearch>({
-  task: { id: 0, title: "", done: false },
-  tasks: [],
-  selectTask: () => {},
-  clearTask: () => {},
-  createTask: () => {},
-});
-
-
-
-function TaskProviderSearch({ children }: TaskProviderProps) {
-  const [task, setTask] = useState<TaskProps>({} as TaskProps);
-  const [tasks, setTasks] = useState<TaskProps[]>([] as TaskProps[]);
-  const [count, setCount] = useState<number>(0);
-
-  async function storeTasks(tasks: TaskProps[]) {
-    try {
-      await AsyncStorage.setItem("@tasks", JSON.stringify(tasks));
-    } catch (e) {
-      Alert.alert("Opa!", "Não foi possível salvar as tarefas");
-    }
-  }
-
-  async function loadTasks() {
-    try {
-      const tasks = await AsyncStorage.getItem("@tasks");
-      if (tasks) {
-        setTasks(JSON.parse(tasks));
-      }
-    } catch (e) {
-      Alert.alert("Opa!", "Não foi possível carregar as tarefas");
-    }
-  }
-
-  function createTask(title: string) {
-    const newTask = {
-      id: count,
-      title,
-      done: false,
-    };
-    setCount(count + 1);
-    setTasks([...tasks, newTask]);
-  }
-
-  function selectTask(task: TaskProps) {
-    setTask(task);
-  }
-
-  function clearTask() {
-    setTask({} as TaskProps);
-  }
-
-  useEffect(() => {
-    loadTasks();
-  }, []);
-
-  useEffect(() => {
-    storeTasks(tasks);
-  }, [tasks]);
-
-  return (
-    <TaskContext.Provider
-      value={{ task, selectTask, clearTask, createTask, tasks }}
-    >
-      {children}
-    </TaskContext.Provider>
-  );
-}
-
-export default TaskProviderSearch;
-
-
-
-
-
 
 interface TaskContextProps {
   isModalVisible: boolean;
   toggleModal: () => void;
   selectedTask: ITarefa | null;
   selectTask: (task: ITarefa) => void;
+  selectedTaskId: number | null;
+  deleteTask: (taskId: number) => void;
+  addTask: (newTask: ITarefa) => Promise<void>;
+  tasks: ITarefa[];
+  getTaskById: (taskId: number) => ITarefa | undefined;
+  updateTask: (updatedTask: ITarefa) => void;
+  updateTasks: (updatedTasks: ITarefa[]) => void;
 }
 
 export const InternalTaskContext = createContext<TaskContextProps | undefined>(undefined);
@@ -121,20 +33,96 @@ interface TaskProviderProps {
 export const TaskProvider: React.FC<TaskProviderProps> = ({ children }) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedTask, setSelectedTask] = useState<ITarefa | null>(null);
+  const [tasks, setTasks] = useState<ITarefa[]>([]);
+  const [selectedTaskId, setSelectedTaskId] = useState<number | null>(null);
 
-  const toggleModal = () => {
+ 
+  
+  useEffect(() => {
+    const fetchTasks = async () => {
+      try {
+        const storedTasks = await AsyncStorage.getItem('tasks');
+        if (storedTasks) {
+          setTasks(JSON.parse(storedTasks));
+        }
+      } catch (error) {
+        console.error('Erro ao carregar tarefas:', error);
+      }
+    };
+
+    fetchTasks();
+  }, []);
+
+  const updateTasks = async (updatedTasks: ITarefa[]) => {
+    try {
+      await AsyncStorage.setItem('tasks', JSON.stringify(updatedTasks));
+    } catch (error) {
+      console.error('Error updating tasks in AsyncStorage:', error);
+    }
+  };
+
+  const updateTask = async (updatedTask: ITarefa) => {
+    try {
+      const updatedTasks = tasks.map((task) => (task.id === updatedTask.id ? updatedTask : task));
+      setTasks(updatedTasks);
+      await updateTasks(updatedTasks);
+    } catch (error) {
+      console.error('Erro ao atualizar tarefa:', error);
+      throw error;
+    }
+  };
+  
+
+  const toggleModal = (taskId?: number) => {
     setIsModalVisible(!isModalVisible);
+    setSelectedTaskId(taskId ?? null);
   };
 
   const selectTask = (task: ITarefa) => {
     setSelectedTask(task);
   };
 
+  const deleteTask = async (taskId: number) => {
+    const updatedTasks = tasks.filter((tarefa) => tarefa.id !== taskId);
+    setTasks(updatedTasks);
+    await updateTasks(updatedTasks);
+  };
+
+const addTask = async (newTask: ITarefa): Promise<void> => {
+  try {
+    const storedTasks = await AsyncStorage.getItem('tasks');
+    const tasks: ITarefa[] = storedTasks ? JSON.parse(storedTasks) : [];
+
+ 
+    setTasks((prevTasks) => [...prevTasks, newTask]);
+
+ 
+    const updatedTasks = [...tasks, newTask];
+    await AsyncStorage.setItem('tasks', JSON.stringify(updatedTasks));
+  } catch (error) {
+    console.error('Erro ao adicionar tarefa:', error);
+    throw error;
+  }
+};
+
+  
+
+  const getTaskById = (taskId: number): ITarefa | undefined => {
+    return tasks.find(task => task.id === taskId);
+  };
+
   const contextValue: TaskContextProps = {
     isModalVisible,
-    toggleModal,
     selectedTask,
+    tasks,
+    toggleModal,
     selectTask,
+    selectedTaskId,
+    deleteTask,
+    addTask, 
+    updateTask, 
+    updateTasks,
+    getTaskById,
   };
 
   return (
