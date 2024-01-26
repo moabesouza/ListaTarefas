@@ -31,6 +31,13 @@ export const Task: React.FC<TaskProps> = ({ taskId }) => {
 
   const statusColor = getStatusColor(task.status as statusEnum);
 
+  const handleDetails = () => {
+    selectTask(task);
+    toggleModal();
+    navigation.navigate('Details');
+  };
+
+
   const handleEdit = () => {
     console.log("Editar option selected");
     selectTask(task);
@@ -80,7 +87,7 @@ export const Task: React.FC<TaskProps> = ({ taskId }) => {
                 <FontAwesomeIcon icon={faCircleXmark} size={20} color="#333" />
               </CloseOptionsButton>
             </ModalHeader>
-            <TouchableOpacity onPress={handleEdit}>
+            <TouchableOpacity onPress={handleDetails}>
               <OptionText>Detalhes</OptionText>
             </TouchableOpacity>
             <TouchableOpacity onPress={handleEdit}>

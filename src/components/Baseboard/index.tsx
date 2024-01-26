@@ -4,13 +4,9 @@ import { ButtonRight, ButtonLeft, ButtonCenter, MainFooter, SecondaryFooter } fr
 
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootStackParamList } from '../../types/navigation';
 
-type RootStackParamList = {
-  Home: undefined;
-  Create: undefined;
-  Dashboard: undefined;
-  List: undefined;
-};
+
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
 

@@ -4,5 +4,6 @@ export type RootStackParamList = {
     Edit: undefined;
     Dashboard: undefined;
     List: undefined;
+    Details: undefined;
   };
   
