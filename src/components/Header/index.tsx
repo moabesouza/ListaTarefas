@@ -3,18 +3,13 @@ import { HeaderStyle, HeaderTitle, HeaderIconContainer, HeaderIcon } from './sty
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { useNavigation } from '@react-navigation/native';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { NavigationProp } from '../../types/navigation';
 
-type RootStackParamList = {
-  List: undefined;
-  Create: undefined; 
-};
 
 interface HeaderProps {
   title: string;
 }
 
-type NavigationProp = NativeStackNavigationProp<RootStackParamList, 'List'>;
 
 export function Header({ title }: HeaderProps) {
   const navigation = useNavigation<NavigationProp>();

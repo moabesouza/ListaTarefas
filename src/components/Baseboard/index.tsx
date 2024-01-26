@@ -1,14 +1,8 @@
 import { Text } from "react-native";
 import { AntDesign } from '@expo/vector-icons';
 import { ButtonRight, ButtonLeft, ButtonCenter, MainFooter, SecondaryFooter } from "./styles";
-
 import { useNavigation } from '@react-navigation/native';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { RootStackParamList } from '../../types/navigation';
-
-
-
-type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
+import { NavigationProp } from '../../types/navigation';
 
 export function Baseboard() {
   const navigation = useNavigation<NavigationProp>();

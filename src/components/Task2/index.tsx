@@ -6,8 +6,7 @@ import { faCircleXmark} from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { useTaskContext } from '../../context/taskContext';
 import { useNavigation } from '@react-navigation/native';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { RootStackParamList } from '../../types/navigation';
+import { NavigationProp } from '../../types/navigation';
 import { getStatusColor, getStatusDescription, getTipoDescription } from '../../utils/statusUtils';
 import { statusEnum, tipoEnum } from '../../Enum/enums';
 
@@ -16,7 +15,6 @@ type TaskProps = {
   taskId: number; 
 };
 
-type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
 export const Task: React.FC<TaskProps> = ({ taskId }) => {
   const { selectTask, deleteTask, getTaskById } = useTaskContext();
