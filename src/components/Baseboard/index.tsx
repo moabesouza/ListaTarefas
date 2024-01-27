@@ -4,6 +4,9 @@ import { ButtonRight, ButtonLeft, ButtonCenter, MainFooter, SecondaryFooter } fr
 import { useNavigation } from '@react-navigation/native';
 import { NavigationProp } from '../../types/navigation';
 
+
+
+
 export function Baseboard() {
   const navigation = useNavigation<NavigationProp>();
 
