@@ -37,8 +37,7 @@ export function Details() {
 
           <RowContainer>
             <Label>Tipo:</Label>
-            <Value>{getTipoDescription(selectedTask?.tipo as tipoEnum)}</Value>
-          
+            <Value>{getTipoDescription(selectedTask?.tipo as tipoEnum)}</Value>          
           </RowContainer>
 
           <RowContainerEnd>

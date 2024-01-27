@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, Modal, TouchableOpacity, FlatList } from 'react-native';
-import { HeaderStyle, SearchInputContainer, SearchInput, SearchIcon, EllipsisIcon, ModalContainer, ModalContent, OptionText, CloseOptionsButton, ModalHeader, ModalTitle} from './styles';
+import { HeaderStyle, SearchInputContainer, SearchInput, SearchIcon, EllipsisIcon, ModalContainer, ModalContent, OptionText, CloseOptionsButton, ModalHeader, ModalTitle, ClearFilterButton } from './styles';
 import { faSearch, faEllipsisV } from '@fortawesome/free-solid-svg-icons';
 import { faCircleXmark } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
@@ -14,6 +14,7 @@ export const HeaderSearch = () => {
 
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const [selectedStatus, setSelectedStatus] = useState<IStatus | null>(null);
 
   const toggleModal = () => {
     setIsModalVisible(!isModalVisible);
@@ -21,19 +22,32 @@ export const HeaderSearch = () => {
 
   const handleOptionSelect = (option: IStatus) => {
     console.log(`Opção selecionada: ${option.descricao}`);
+    setSelectedStatus(option); 
+    toggleModal();
+  };
+
+  const clearFilter = () => {
+    setSelectedStatus(null);
     toggleModal();
   };
 
   useEffect(() => {
     const filterTasks = () => {
-      const filteredTasks = tasks.filter((task) =>
+      let filteredTasks = tasks;
+
+      if (selectedStatus) {
+        filteredTasks = filteredTasks.filter((task) => task.status === selectedStatus.id);
+      }
+
+      filteredTasks = filteredTasks.filter((task) =>
         task.nome.toLowerCase().includes(searchQuery.toLowerCase())
       );
+
       setFilteredTasks(filteredTasks);
     };
 
     filterTasks();
-  }, [searchQuery, tasks, setFilteredTasks]);
+  }, [searchQuery, selectedStatus, tasks, setFilteredTasks]);
   
   return (
     <View>
@@ -74,6 +88,9 @@ export const HeaderSearch = () => {
                 </TouchableOpacity>
               )}
             />
+            <ClearFilterButton onPress={clearFilter}>
+              <OptionText>Limpar Filtro</OptionText>
+            </ClearFilterButton>
           </ModalContent>
         </ModalContainer>
       </Modal>

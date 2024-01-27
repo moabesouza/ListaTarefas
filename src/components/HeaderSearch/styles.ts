@@ -96,3 +96,12 @@ export const OptionText = styled.Text`
   font-size: 16px;
   padding-vertical: 10px;
 `;
+
+export const ClearFilterButton = styled.TouchableOpacity`
+  margin-top: 10px;
+  padding: 10px;
+  background-color: #eee;
+  align-items: center;
+  border-radius: 20px;
+`;
+
