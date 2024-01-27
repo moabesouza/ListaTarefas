@@ -76,7 +76,7 @@ export function Edit() {
         </ContentContainer>
 
         <ButtonContainer>
-          <Button onPress={handleSave} />
+          <Button onPress={handleSave} text="Salvar"/>
         </ButtonContainer>
       </Scroll>
     </Container>

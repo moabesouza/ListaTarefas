@@ -89,7 +89,7 @@ export function Create() {
         </ContentContainer>
 
         <ButtonContainer>
-          <Button onPress={handleCreateTask} />
+          <Button onPress={handleCreateTask} text="Salvar"/>
         </ButtonContainer>
       </Scroll>
     </Container>

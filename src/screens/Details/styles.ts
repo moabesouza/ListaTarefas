@@ -46,10 +46,14 @@ export const Value = styled.Text`
   color: #333;
   font-family: Poppins;
  
- 
 `;
 
 export const ContentContainer = styled.View`
   flex: 1;
   padding: 16px;
+`;
+
+export const ButtonContainer = styled.View`
+  align-items: center;
+  margin-bottom: 20px;
 `;

@@ -1,14 +1,14 @@
-
 import { StyledButton, ButtonText } from './styles';
 
 interface ButtonProps {
   onPress: () => void;
+  text: string; 
 }
 
-export function Button({ onPress }: ButtonProps) {
+export function Button({ onPress, text }: ButtonProps) {
   return (
     <StyledButton onPress={onPress}>
-      <ButtonText>Salvar</ButtonText>
+      <ButtonText>{text}</ButtonText>
     </StyledButton>
   );
 }
