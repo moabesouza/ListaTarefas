@@ -1,13 +1,19 @@
-import React, { useState } from 'react';
-import { View, Modal, TouchableOpacity, Text } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Modal, TouchableOpacity, FlatList } from 'react-native';
 import { HeaderStyle, SearchInputContainer, SearchInput, SearchIcon, EllipsisIcon, ModalContainer, ModalContent, OptionText, CloseOptionsButton, ModalHeader, ModalTitle} from './styles';
-import { faSearch, faEllipsisV} from '@fortawesome/free-solid-svg-icons';
-import { faCircleXmark} from '@fortawesome/free-regular-svg-icons';
+import { faSearch, faEllipsisV } from '@fortawesome/free-solid-svg-icons';
+import { faCircleXmark } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { IStatus } from '../../interfaces/status';
-import { StatusData } from "../../Data/status";
+import { StatusData } from '../../Data/status';
+import { ITarefa } from '../../interfaces/tarefa';
+import { useTaskContext, TaskContextProps } from '../../context/taskContext';
+
 export const HeaderSearch = () => {
+  const { tasks, setFilteredTasks } = useTaskContext() as TaskContextProps;
+
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
 
   const toggleModal = () => {
     setIsModalVisible(!isModalVisible);
@@ -18,12 +24,27 @@ export const HeaderSearch = () => {
     toggleModal();
   };
 
+  useEffect(() => {
+    const filterTasks = () => {
+      const filteredTasks = tasks.filter((task) =>
+        task.nome.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+      setFilteredTasks(filteredTasks);
+    };
+
+    filterTasks();
+  }, [searchQuery, tasks, setFilteredTasks]);
+  
   return (
     <View>
       <HeaderStyle>
         <SearchInputContainer>
           <SearchIcon icon={faSearch} />
-          <SearchInput placeholder="Buscar" />
+          <SearchInput
+            placeholder="Buscar"
+            value={searchQuery}
+            onChangeText={(text: string) => setSearchQuery(text)}
+          />
         </SearchInputContainer>
         <TouchableOpacity onPress={toggleModal}>
           <EllipsisIcon icon={faEllipsisV} />
@@ -38,22 +59,24 @@ export const HeaderSearch = () => {
       >
         <ModalContainer>
           <ModalContent>
-          <ModalHeader>
+            <ModalHeader>
               <ModalTitle>Filtrar por Status</ModalTitle>
               <CloseOptionsButton onPress={toggleModal}>
                 <FontAwesomeIcon icon={faCircleXmark} size={20} color="#333" />
               </CloseOptionsButton>
             </ModalHeader>
-            {StatusData.map((status) => (
-              <TouchableOpacity key={status.id} onPress={() => handleOptionSelect(status)}>
-                <OptionText>{status.descricao}</OptionText>
-              </TouchableOpacity>
-            ))}
+            <FlatList
+              data={StatusData}
+              keyExtractor={(item) => item.id.toString()}
+              renderItem={({ item }) => (
+                <TouchableOpacity onPress={() => handleOptionSelect(item)}>
+                  <OptionText>{item.descricao}</OptionText>
+                </TouchableOpacity>
+              )}
+            />
           </ModalContent>
         </ModalContainer>
       </Modal>
-
     </View>
   );
 };
-

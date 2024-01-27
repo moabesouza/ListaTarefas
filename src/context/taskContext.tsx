@@ -1,10 +1,10 @@
-import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
+import React, { createContext, useContext, useState, ReactNode, useEffect, Dispatch, SetStateAction  } from 'react';
 import { ITarefa } from "../interfaces/tarefa";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-interface TaskContextProps {
+export interface TaskContextProps {
   isModalVisible: boolean;
-  toggleModal: () => void;
+  toggleModal: (taskId?: number | undefined) => void;
   selectedTask: ITarefa | null;
   selectTask: (task: ITarefa) => void;
   selectedTaskId: number | null;
@@ -14,9 +14,14 @@ interface TaskContextProps {
   getTaskById: (taskId: number) => ITarefa | undefined;
   updateTask: (updatedTask: ITarefa) => void;
   updateTasks: (updatedTasks: ITarefa[]) => void;
+  filteredTasks: ITarefa[];
+  setFilteredTasks: React.Dispatch<React.SetStateAction<ITarefa[]>>;
+  
 }
 
 export const InternalTaskContext = createContext<TaskContextProps | undefined>(undefined);
+
+
 
 export const useTaskContext = (): TaskContextProps => {
   const context = useContext(InternalTaskContext);
@@ -35,6 +40,8 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({ children }) => {
   const [selectedTask, setSelectedTask] = useState<ITarefa | null>(null);
   const [tasks, setTasks] = useState<ITarefa[]>([]);
   const [selectedTaskId, setSelectedTaskId] = useState<number | null>(null);
+  const [filteredTasks, setFilteredTasks] = useState<ITarefa[]>([]); 
+  
 
   useEffect(() => {
     const fetchTasks = async () => {
@@ -69,7 +76,6 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({ children }) => {
       throw error;
     }
   };
-  
 
   const toggleModal = (taskId?: number) => {
     setIsModalVisible(!isModalVisible);
@@ -86,25 +92,23 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({ children }) => {
     await updateTasks(updatedTasks);
   };
 
-const addTask = async (newTask: ITarefa): Promise<void> => {
-  try {
-    const storedTasks = await AsyncStorage.getItem('tasks');
-    const tasks: ITarefa[] = storedTasks ? JSON.parse(storedTasks) : [];
+  const addTask = async (newTask: ITarefa): Promise<void> => {
+    try {
+      const storedTasks = await AsyncStorage.getItem('tasks');
+      const tasks: ITarefa[] = storedTasks ? JSON.parse(storedTasks) : [];
 
- 
-    setTasks((prevTasks) => [...prevTasks, newTask]);
+      setTasks((prevTasks) => [...prevTasks, newTask]);
 
- 
-    const updatedTasks = [...tasks, newTask];
-    await AsyncStorage.setItem('tasks', JSON.stringify(updatedTasks));
-  } catch (error) {
-    console.error('Erro ao adicionar tarefa:', error);
-    throw error;
-  }
-};
+      const updatedTasks = [...tasks, newTask];
+      await AsyncStorage.setItem('tasks', JSON.stringify(updatedTasks));
+    } catch (error) {
+      console.error('Erro ao adicionar tarefa:', error);
+      throw error;
+    }
+  };
 
   const getTaskById = (taskId: number): ITarefa | undefined => {
-    return tasks.find(task => task.id === taskId);
+    return tasks.find((task) => task.id === taskId);
   };
 
   const contextValue: TaskContextProps = {
@@ -115,10 +119,12 @@ const addTask = async (newTask: ITarefa): Promise<void> => {
     selectTask,
     selectedTaskId,
     deleteTask,
-    addTask, 
-    updateTask, 
+    addTask,
+    updateTask,
     updateTasks,
     getTaskById,
+    filteredTasks,
+     setFilteredTasks,
   };
 
   return (
@@ -127,3 +133,5 @@ const addTask = async (newTask: ITarefa): Promise<void> => {
     </InternalTaskContext.Provider>
   );
 };
+
+

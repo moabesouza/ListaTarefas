@@ -8,7 +8,7 @@ import { useTaskContext } from '../../context/taskContext';
 import AsyncStorage from '@react-native-async-storage/async-storage'; 
 
 export function List() {
-  const { tasks, updateTasks } = useTaskContext();  
+  const { filteredTasks, updateTasks } = useTaskContext();
 
   useEffect(() => {
     const loadTasks = async () => {
@@ -16,26 +16,25 @@ export function List() {
         console.log('Carregando tarefas...');
         const storedTasks = await AsyncStorage.getItem('tasks');
         console.log('Tarefas armazenadas:', storedTasks);
-  
+
         const loadedTasks = storedTasks ? JSON.parse(storedTasks) : [];
         console.log('Tarefas carregadas:', loadedTasks);
-  
-        updateTasks(loadedTasks);  
+
+        updateTasks(loadedTasks);
       } catch (error) {
         console.error('Erro ao carregar tarefas:', error);
       }
     };
-  
-    loadTasks();
-  }, [updateTasks]);  
 
+    loadTasks();
+  }, [updateTasks]);
   return (
     <Container>
       <StatusBar translucent backgroundColor="transparent" />
       <HeaderSearch />
       <Scroll showsVerticalScrollIndicator={false}>
         <ContentContainer>
-          {tasks.map((tarefa) => (
+          {filteredTasks.map((tarefa) => (
             <Task key={tarefa.id} taskId={tarefa.id} />
           ))}
         </ContentContainer>
