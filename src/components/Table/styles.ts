@@ -35,8 +35,8 @@ export const TaskRow = styled.TouchableOpacity`
   justify-content: center;
   align-items: center;
   flex-direction: row;
-  border-radius: 20px;
-  margin: 10px;
+  border-radius: 15px;
+  margin: 8px;
 `;
 
 export const TaskNum = styled.View` 

@@ -4,6 +4,7 @@ import { Container, Scroll, ContentContainer, FooterContainer } from './styles';
 import { Baseboard } from '../../components/Baseboard';
 import { Task } from '../../components/Task2';
 import { HeaderSearch } from '../../components/HeaderSearch';
+import { EmptyTask } from '../../components/EmptyTask';
 import { useTaskContext } from '../../context/taskContext'; 
 import AsyncStorage from '@react-native-async-storage/async-storage'; 
 
@@ -28,15 +29,20 @@ export function List() {
 
     loadTasks();
   }, [updateTasks]);
+
   return (
     <Container>
       <StatusBar translucent backgroundColor="transparent" />
-      <HeaderSearch />
-      <Scroll showsVerticalScrollIndicator={false}>
+      <HeaderSearch />     
+      <Scroll showsVerticalScrollIndicator={false}>   
         <ContentContainer>
-          {filteredTasks.map((tarefa) => (
-            <Task key={tarefa.id} taskId={tarefa.id} />
-          ))}
+          {filteredTasks.length === 0 ? (
+            <EmptyTask text="Você não possui nenhuma tarefa cadastrada!" />
+          ) : (
+            filteredTasks.map((tarefa) => (
+              <Task key={tarefa.id} taskId={tarefa.id} />
+            ))
+          )}
         </ContentContainer>
       </Scroll>
       <FooterContainer>
