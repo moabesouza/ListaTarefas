@@ -2,9 +2,9 @@ import styled from "styled-components/native";
 import { Platform } from "react-native";
 
 export const StyledButton = styled.TouchableOpacity`
-  width: 218px;
-  height: 39.967px;
-  padding: 11px 70px 6.967px 70px;
+  width: 200px;
+  height: 39px;
+ 
   justify-content: center;
   align-items: center;
   flex-shrink: 0;

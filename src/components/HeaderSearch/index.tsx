@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { View, Modal, TouchableOpacity, FlatList } from 'react-native';
-import { HeaderStyle, SearchInputContainer, SearchInput, SearchIcon, EllipsisIcon, ModalContainer, ModalContent, OptionText, CloseOptionsButton, ModalHeader, ModalTitle, ClearFilterButton } from './styles';
+import { View, Modal, TouchableOpacity, Text, FlatList, ScrollView } from 'react-native';
+import { HeaderStyle, SearchInputContainer, SearchInput, SearchIcon, ButtonsContainer, ModalContainer, ModalContent, OptionText, CloseOptionsButton, ModalHeader, ModalTitle, ClearFilterButton, ButtonFilter, ButtonText } from './styles';
 import { faSearch, faEllipsisV } from '@fortawesome/free-solid-svg-icons';
 import { faCircleXmark } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { IStatus } from '../../interfaces/status';
+import { ITipo } from '../../interfaces/tipo';
 import { StatusData } from '../../Data/status';
-import { ITarefa } from '../../interfaces/tarefa';
+import { TipoData } from '../../Data/tipo';
 import { useTaskContext, TaskContextProps } from '../../context/taskContext';
 
 export const HeaderSearch = () => {
@@ -15,20 +16,54 @@ export const HeaderSearch = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedStatus, setSelectedStatus] = useState<IStatus | null>(null);
+  const [selectedTipo, setSelectedTipo] = useState<ITipo | null>(null);
+  const [modalOptions, setModalOptions] = useState<Array<IStatus | ITipo>>([]);
+  const [buttonText, setButtonText] = useState('');
 
   const toggleModal = () => {
     setIsModalVisible(!isModalVisible);
   };
 
-  const handleOptionSelect = (option: IStatus) => {
+  const handleOptionSelect = (option: IStatus | ITipo) => {
     console.log(`Opção selecionada: ${option.descricao}`);
-    setSelectedStatus(option); 
+    
+    if (isTipo(option)) {
+      setSelectedTipo(option as ITipo);
+      setButtonText('Filtrar por Tipo');
+    } else {
+      setSelectedStatus(option as IStatus);
+      setButtonText('Filtrar por Status');
+    }
+    
     toggleModal();
+  };
+  
+
+  const isTipo = (option: IStatus | ITipo): option is ITipo => {
+    return (option as ITipo).id !== undefined;
   };
 
   const clearFilter = () => {
     setSelectedStatus(null);
+    setSelectedTipo(null);
     toggleModal();
+  };
+
+  const filterByTipo = () => {
+    setModalOptions(TipoData);
+    setButtonText('Filtrar por Tipo');
+    toggleModal();
+  };
+
+  const filterByStatus = () => {
+    setModalOptions(StatusData);
+    setButtonText('Filtrar por Status');
+    toggleModal();
+  };
+
+  const showAll = () => {
+    setFilteredTasks(tasks);
+
   };
 
   useEffect(() => {
@@ -39,6 +74,10 @@ export const HeaderSearch = () => {
         filteredTasks = filteredTasks.filter((task) => task.status === selectedStatus.id);
       }
 
+      if (selectedTipo) {
+        filteredTasks = filteredTasks.filter((task) => task.tipo === selectedTipo.id);
+      }
+
       filteredTasks = filteredTasks.filter((task) =>
         task.nome.toLowerCase().includes(searchQuery.toLowerCase())
       );
@@ -47,8 +86,8 @@ export const HeaderSearch = () => {
     };
 
     filterTasks();
-  }, [searchQuery, selectedStatus, tasks, setFilteredTasks]);
-  
+  }, [searchQuery, selectedStatus, selectedTipo, tasks, setFilteredTasks]);
+
   return (
     <View>
       <HeaderStyle>
@@ -60,9 +99,25 @@ export const HeaderSearch = () => {
             onChangeText={(text: string) => setSearchQuery(text)}
           />
         </SearchInputContainer>
-        <TouchableOpacity onPress={toggleModal}>
-          <EllipsisIcon icon={faEllipsisV} />
-        </TouchableOpacity>
+
+        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+          <ButtonsContainer>
+            <Text>Filtrar por: </Text>
+           
+              <ButtonFilter onPress={filterByTipo}>
+                <ButtonText>Tipo</ButtonText>
+              </ButtonFilter>
+                             
+              <ButtonFilter onPress={filterByStatus}>
+                <ButtonText>Status</ButtonText>
+              </ButtonFilter>
+      
+              <ButtonFilter onPress={showAll}>
+                <ButtonText>Todos</ButtonText>
+              </ButtonFilter>
+        
+          </ButtonsContainer>
+        </ScrollView>
       </HeaderStyle>
 
       <Modal
@@ -74,13 +129,13 @@ export const HeaderSearch = () => {
         <ModalContainer>
           <ModalContent>
             <ModalHeader>
-              <ModalTitle>Filtrar por Status</ModalTitle>
+              <ModalTitle>{buttonText}</ModalTitle>
               <CloseOptionsButton onPress={toggleModal}>
                 <FontAwesomeIcon icon={faCircleXmark} size={20} color="#333" />
               </CloseOptionsButton>
             </ModalHeader>
             <FlatList
-              data={StatusData}
+              data={modalOptions}
               keyExtractor={(item) => item.id.toString()}
               renderItem={({ item }) => (
                 <TouchableOpacity onPress={() => handleOptionSelect(item)}>
