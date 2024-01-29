@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { Container, Scroll, ContentContainer, FormContainer, InputLabel, ButtonContainer } from './styles';
+import { Container, Scroll, ContentContainer, FormContainer, InputLabel, ButtonContainer, ErrorMessage } from './styles';
 import { Input } from '../../components/Input';
 import { Textarea } from '../../components/Textarea';
 import { Select } from '../../components/Select';
@@ -17,25 +17,60 @@ export function Create() {
   const [selectedTipo, setSelectedTipo] = useState('');
   const [taskName, setTaskName] = useState('');
   const [taskDescription, setTaskDescription] = useState('');
+  const [errors, setErrors] = useState({
+    taskName: '',
+    selectedStatus: '',
+    selectedTipo: '',
+  });
+
+  useEffect(() => {
+    setErrors({
+      taskName: '',
+      selectedStatus: '',
+      selectedTipo: '',
+    });
+  }, [taskName, selectedStatus, selectedTipo]);
 
   const handleCreateTask = async () => {
     try {
-      const newTask: ITarefa = {
-        id: Date.now(),
-        nome: taskName,
-        tipo: selectedTipo,
-        status: selectedStatus,
-        descricao: taskDescription,
-      };
+      setErrors({
+        taskName: '',
+        selectedStatus: '',
+        selectedTipo: '',
+      });
 
-      await addTask(newTask);
+      if (!taskName) {
+        setErrors((prevErrors) => ({ ...prevErrors, taskName: 'Campo obrigatório' }));
+      }
+      if (!selectedStatus) {
+        setErrors((prevErrors) => ({ ...prevErrors, selectedStatus: 'Campo obrigatório' }));
+      }
+      if (!selectedTipo) {
+        setErrors((prevErrors) => ({ ...prevErrors, selectedTipo: 'Campo obrigatório' }));
+      }
 
-      setTaskName('');
-      setSelectedStatus('');
-      setSelectedTipo('');
-      setTaskDescription('');
+      if (errors.taskName || errors.selectedStatus || errors.selectedTipo) {
+        return;
+      }
 
-      console.log('Tarefa adicionada com sucesso!');
+      if (taskName.trim() !== '' && selectedStatus.trim() !== '' && selectedTipo.trim() !== '') {
+        const newTask: ITarefa = {
+          id: Date.now(),
+          nome: taskName,
+          tipo: selectedTipo,
+          status: selectedStatus,
+          descricao: taskDescription,
+        };
+
+        await addTask(newTask);
+
+        setTaskName('');
+        setSelectedStatus('');
+        setSelectedTipo('');
+        setTaskDescription('');
+
+        console.log('Tarefa adicionada com sucesso!');
+      }
     } catch (error) {
       console.error('Erro ao adicionar tarefa:', error);
     }
@@ -54,6 +89,7 @@ export function Create() {
               value={taskName}
               onChangeText={(text) => setTaskName(text)}
             />
+            <ErrorMessage>{errors.taskName}</ErrorMessage>
           </FormContainer>
 
           <FormContainer>
@@ -65,6 +101,7 @@ export function Create() {
               selectedValue={selectedStatus}
               onValueChange={(itemValue) => setSelectedStatus(itemValue)}
             />
+            <ErrorMessage>{errors.selectedStatus}</ErrorMessage>
           </FormContainer>
 
           <FormContainer>
@@ -76,6 +113,7 @@ export function Create() {
               selectedValue={selectedTipo}
               onValueChange={(itemValue) => setSelectedTipo(itemValue)}
             />
+            <ErrorMessage>{errors.selectedTipo}</ErrorMessage>
           </FormContainer>
 
           <FormContainer>

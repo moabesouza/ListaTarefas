@@ -17,7 +17,6 @@ export const ButtonText = styled.Text`
   color: #FFF;
   text-align: center;
   font-feature-settings: 'clig' off, 'liga' off;
-  font-family: Poppins;
   font-size: 20px;
   font-style: normal;
   font-weight: 400;

@@ -1,4 +1,4 @@
-// components/Baseboard/styles.ts
+
 import styled from "styled-components/native";
 
 export const MainFooter = styled.View`

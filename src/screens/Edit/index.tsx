@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { Container, Scroll, ContentContainer, FormContainer, InputLabel, ButtonContainer } from './styles';
+import { Container, Scroll, ContentContainer, FormContainer, InputLabel, ButtonContainer, ErrorMessage } from './styles';
 import { Input } from '../../components/Input';
 import { Textarea } from '../../components/Textarea';
 import { Select } from '../../components/Select';
@@ -14,18 +14,39 @@ import { ITarefa } from '../../interfaces/tarefa';
 export function Edit() {
   const { selectedTask, updateTask } = useTaskContext();
   const [editedTask, setEditedTask] = useState<ITarefa>(selectedTask || { id: 0, nome: '', tipo: '', status: '', descricao: '' });
+  const [errors, setErrors] = useState({
+    nome: '',
+    status: '',
+    tipo: '',
+  });
 
   useEffect(() => {
     setEditedTask(selectedTask || { id: 0, nome: '', tipo: '', status: '', descricao: '' });
+    setErrors({ nome: '', status: '', tipo: '' });
   }, [selectedTask]);
 
   const handleInputChange = (fieldName: keyof ITarefa, value: string) => {
     setEditedTask((prevTask) => ({ ...prevTask, [fieldName]: value }));
+    setErrors((prevErrors) => ({ ...prevErrors, [fieldName]: '' })); 
   };
 
   const handleSave = () => {
+  
+    if (!editedTask.nome) {
+      setErrors((prevErrors) => ({ ...prevErrors, nome: 'Campo obrigatório' }));
+      return;
+    }
+    if (!editedTask.status) {
+      setErrors((prevErrors) => ({ ...prevErrors, status: 'Campo obrigatório' }));
+      return;
+    }
+    if (!editedTask.tipo) {
+      setErrors((prevErrors) => ({ ...prevErrors, tipo: 'Campo obrigatório' }));
+      return;
+    }
+
+  
     updateTask(editedTask);
-   
   };
 
   return (
@@ -41,6 +62,7 @@ export function Edit() {
               value={editedTask.nome}
               onChangeText={(text) => handleInputChange('nome', text)}
             />
+            <ErrorMessage>{errors.nome}</ErrorMessage>
           </FormContainer>
 
           <FormContainer>
@@ -52,6 +74,7 @@ export function Edit() {
               selectedValue={editedTask.status}
               onValueChange={(itemValue) => handleInputChange('status', itemValue)}
             />
+            <ErrorMessage>{errors.status}</ErrorMessage>
           </FormContainer>
 
           <FormContainer>
@@ -63,6 +86,7 @@ export function Edit() {
               selectedValue={editedTask.tipo}
               onValueChange={(itemValue) => handleInputChange('tipo', itemValue)}
             />
+            <ErrorMessage>{errors.tipo}</ErrorMessage>
           </FormContainer>
 
           <FormContainer>

@@ -11,15 +11,14 @@ export const Scroll = styled.ScrollView`
 `;
 
 export const FormContainer = styled.View`
-  margin-bottom: 16px;
+  margin-bottom: 4px;
 `;
 
 export const InputLabel = styled.Text`
   font-size: 16px;
   color: #4E8D7C;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
   font-weight: bold;
-  font-family: Poppins;
 `;
 
 export const ButtonContainer = styled.View`
@@ -29,6 +28,10 @@ export const ButtonContainer = styled.View`
 
 export const ContentContainer = styled.View`
   flex: 1;
-  padding: 16px;
+  padding: 10px;
 `;
 
+export const ErrorMessage = styled.Text`
+  color: red;
+  font-size: 14px; 
+`;

@@ -1,14 +1,14 @@
-// components/styles.ts
+
 import styled from 'styled-components/native';
 
 
 export const StyledInput = styled.TextInput`
-  width: 330px;
+  width: 100%;
   height: 56px;
-  padding: 10px;
+  padding: 15px;
   border: 1px solid #ccc;
   border-radius: 10px;
-  margin-bottom: 10px;
+  margin-bottom: 6px;
   font-size: 16px;
   color: #333;
   

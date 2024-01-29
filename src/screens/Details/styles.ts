@@ -37,15 +37,14 @@ export const Label = styled.Text`
   font-size: 16px;
   color: #4E8D7C;
   font-weight: bold;
-  font-family: Poppins;
+ 
   paddingRight: 10px; 
 `;
 
 export const Value = styled.Text`
   font-size: 14px;
   color: #333;
-  font-family: Poppins;
- 
+
 `;
 
 export const ContentContainer = styled.View`
