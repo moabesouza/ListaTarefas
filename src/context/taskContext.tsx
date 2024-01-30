@@ -40,8 +40,7 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({ children }) => {
   const [selectedTask, setSelectedTask] = useState<ITarefa | null>(null);
   const [tasks, setTasks] = useState<ITarefa[]>([]);
   const [selectedTaskId, setSelectedTaskId] = useState<number | null>(null);
-  const [filteredTasks, setFilteredTasks] = useState<ITarefa[]>([]); 
-  
+  const [filteredTasks, setFilteredTasks] = useState<ITarefa[]>([]);
 
   useEffect(() => {
     const fetchTasks = async () => {
@@ -65,6 +64,17 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({ children }) => {
       console.error('Error updating tasks in AsyncStorage:', error);
     }
   };
+
+
+  
+  const sortTasksByStatus = (tasksToSort: ITarefa[]) => {
+    return tasksToSort.sort((a, b) => {
+      const statusA = typeof a.status === 'number' ? a.status : Number.parseInt(a.status as string, 10) || 0;
+      const statusB = typeof b.status === 'number' ? b.status : Number.parseInt(b.status as string, 10) || 0;
+      return statusA - statusB;
+    });
+  };
+  
 
   const updateTask = async (updatedTask: ITarefa) => {
     try {
@@ -114,7 +124,7 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({ children }) => {
   const contextValue: TaskContextProps = {
     isModalVisible,
     selectedTask,
-    tasks,
+    tasks: sortTasksByStatus(tasks),
     toggleModal,
     selectTask,
     selectedTaskId,
