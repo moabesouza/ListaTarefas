@@ -66,6 +66,8 @@ export const HeaderSearch = () => {
 
   const showAll = () => {
     setFilteredTasks(tasks);
+    setSelectedTipo(null);
+    setSelectedStatus(null);
   };
 
   useEffect(() => {
@@ -106,16 +108,16 @@ export const HeaderSearch = () => {
           <ButtonsContainer>
             <TextTitle>Filtrar por: </TextTitle>
 
-            <ButtonFilter onPress={filterByTipo}>
-              <ButtonText>Tipo</ButtonText>
+            <ButtonFilter onPress={filterByTipo} style={{ backgroundColor: selectedTipo ? '#646FD4' : 'transparent' }}>
+              <ButtonText style={{ color: selectedTipo ? '#FFF' : '#646FD4' }}>Tipo</ButtonText>            
             </ButtonFilter>
 
-            <ButtonFilter onPress={filterByStatus}>
-              <ButtonText>Status</ButtonText>
+            <ButtonFilter onPress={filterByStatus} style={{ backgroundColor: selectedStatus ? '#646FD4' : 'transparent' }}>
+              <ButtonText style={{ color: selectedStatus ? '#FFF' : '#646FD4' }}>Status</ButtonText>            
             </ButtonFilter>
 
-            <ButtonFilter onPress={showAll}>
-              <ButtonText>Todos</ButtonText>
+            <ButtonFilter onPress={showAll} style={{ backgroundColor: selectedStatus || selectedTipo ? 'transparent' : '#646FD4', borderColor: '#646FD4' }}>
+              <ButtonText style={{ color: selectedStatus || selectedTipo ? '#646FD4' : '#FFF' }}>Todos</ButtonText>
             </ButtonFilter>
           </ButtonsContainer>
         </ScrollView>

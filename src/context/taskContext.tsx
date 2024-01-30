@@ -64,18 +64,11 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({ children }) => {
       console.error('Error updating tasks in AsyncStorage:', error);
     }
   };
-
-
   
   const sortTasksByStatus = (tasksToSort: ITarefa[]) => {
-    return tasksToSort.sort((a, b) => {
-      const statusA = typeof a.status === 'number' ? a.status : Number.parseInt(a.status as string, 10) || 0;
-      const statusB = typeof b.status === 'number' ? b.status : Number.parseInt(b.status as string, 10) || 0;
-      return statusA - statusB;
-    });
+    return tasksToSort.sort((a, b) => Number(a.status) - Number(b.status));
   };
   
-
   const updateTask = async (updatedTask: ITarefa) => {
     try {
       const updatedTasks = tasks.map((task) => (task.id === updatedTask.id ? updatedTask : task));
@@ -134,7 +127,7 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({ children }) => {
     updateTasks,
     getTaskById,
     filteredTasks,
-     setFilteredTasks,
+    setFilteredTasks,
   };
 
   return (
