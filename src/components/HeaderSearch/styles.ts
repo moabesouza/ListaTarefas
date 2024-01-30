@@ -101,6 +101,7 @@ export const ClearFilterButton = styled.TouchableOpacity`
   background-color: #eee;
   align-items: center;
   border-radius: 20px;
+  align-items: center;
 `;
 
 export const ButtonsContainer = styled.View`
@@ -114,7 +115,6 @@ export const ButtonsContainer = styled.View`
 export const ButtonFilter = styled.TouchableOpacity`
   width: 80px;
   background-color: transparent;
-  padding: 5px;
   border-radius: 30px;
   align-items: center;
   justify-content: center;
@@ -122,6 +122,15 @@ export const ButtonFilter = styled.TouchableOpacity`
   margin-right: 10px; 
 `;
 
+export const TextTitle = styled.Text`
+  color: #4E8D7C;
+  font-size: 16px;
+  line-height: 25px;
+  font-weight: bold;
+`;
+
 export const ButtonText = styled.Text`
   color: #646FD4;
+  font-size: 15px;
+
 `;
