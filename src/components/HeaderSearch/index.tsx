@@ -47,8 +47,6 @@ export const HeaderSearch = () => {
   const clearFilter = () => {
     setSelectedStatus(null);
     setSelectedTipo(null);
-    toggleModalTipo();
-    toggleModalStatus();
   };
 
   const filterByTipo = () => {
