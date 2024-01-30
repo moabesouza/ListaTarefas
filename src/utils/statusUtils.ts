@@ -44,6 +44,8 @@ export const getTipoDescription = (tipoId: tipoEnum): string => {
       return 'Pagamento';
     case tipoEnum.Saude:
       return 'Saúde';
+    case tipoEnum.Outros:
+        return 'Outros';
     default:
       return 'Desconhecido';
   }

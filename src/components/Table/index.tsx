@@ -12,6 +12,7 @@ export function Table() {
     [tipoEnum.Trabalho]: 0,
     [tipoEnum.Saude]: 0,
     [tipoEnum.Pagamento]: 0,
+    [tipoEnum.Outros]: 0,
   });
 
   useEffect(() => {
@@ -20,6 +21,7 @@ export function Table() {
       [tipoEnum.Trabalho]: tasks.filter((task) => task.tipo === tipoEnum.Trabalho).length,
       [tipoEnum.Saude]: tasks.filter((task) => task.tipo === tipoEnum.Saude).length,
       [tipoEnum.Pagamento]: tasks.filter((task) => task.tipo === tipoEnum.Pagamento).length,
+      [tipoEnum.Outros]: tasks.filter((task) => task.tipo === tipoEnum.Outros).length,
     };
 
     setTaskQuantities(quantities);
@@ -61,7 +63,19 @@ export function Table() {
               <TaskText>Pagamento</TaskText>
               <TaskTextNum>{taskQuantities[tipoEnum.Pagamento]}</TaskTextNum>
             </TaskNum>
-          </TaskRow>
+          </TaskRow>          
+        </ContainerLine>
+      </ContainerRow>
+
+      <ContainerRow>
+        <ContainerLine>
+          <TaskRow>
+            <FontAwesome name="star" size={30} color="#146A90" />
+            <TaskNum>
+              <TaskText>Outros</TaskText>
+              <TaskTextNum>{taskQuantities[tipoEnum.Outros]}</TaskTextNum>
+            </TaskNum>
+          </TaskRow>                
         </ContainerLine>
       </ContainerRow>
     </Container>
