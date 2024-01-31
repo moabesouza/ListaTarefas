@@ -11,7 +11,7 @@ export const getStatusColor = (statusId: statusEnum): string => {
     case statusEnum.Finalizado:
       return '#00D43B';
     case statusEnum.Pausado:
-      return '#FBFF47';
+      return '#146A90';
     default:
       return '#000000';
   }

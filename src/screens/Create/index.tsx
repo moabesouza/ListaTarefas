@@ -10,6 +10,10 @@ import { TipoData } from '../../Data/tipo';
 import { StatusData } from '../../Data/status';
 import { useTaskContext } from '../../context/taskContext';
 import { ITarefa } from '../../interfaces/tarefa';
+import SweetAlert from 'react-native-sweet-alert';
+import ModalMessage from 'react-native-toast-message';
+
+
 
 export function Create() {
   const { addTask } = useTaskContext();
@@ -38,7 +42,7 @@ export function Create() {
         selectedStatus: '',
         selectedTipo: '',
       });
-
+  
       if (!taskName) {
         setErrors((prevErrors) => ({ ...prevErrors, taskName: 'Campo obrigatório' }));
       }
@@ -48,11 +52,11 @@ export function Create() {
       if (!selectedTipo) {
         setErrors((prevErrors) => ({ ...prevErrors, selectedTipo: 'Campo obrigatório' }));
       }
-
+  
       if (errors.taskName || errors.selectedStatus || errors.selectedTipo) {
         return;
       }
-
+  
       if (taskName.trim() !== '' && selectedStatus.trim() !== '' && selectedTipo.trim() !== '') {
         const newTask: ITarefa = {
           id: Date.now(),
@@ -61,27 +65,39 @@ export function Create() {
           status: selectedStatus,
           descricao: taskDescription,
         };
-
+  
         await addTask(newTask);
-
+  
         setTaskName('');
         setSelectedStatus('');
         setSelectedTipo('');
         setTaskDescription('');
+        
+        ModalMessage.show({
+          type: 'success',
+          text1: 'Sucesso',
+          text2: 'Tarefa cadastrada com sucesso!',
+          visibilityTime: 3000,
+          autoHide: true,
+        });
 
-        console.log('Tarefa adicionada com sucesso!');
+
+
       }
     } catch (error) {
       console.error('Erro ao adicionar tarefa:', error);
     }
   };
+  
 
   return (
     <Container>
       <StatusBar translucent backgroundColor="transparent" />
       <Header title="Cadastrar Tarefa"/>
+     
       <Scroll showsVerticalScrollIndicator={false}>
         <ContentContainer>
+ 
           <FormContainer>
             <InputLabel>Tarefa</InputLabel>
             <Input
@@ -91,7 +107,7 @@ export function Create() {
             />
             <ErrorMessage>{errors.taskName}</ErrorMessage>
           </FormContainer>
-
+         
           <FormContainer>
             <InputLabel>Status</InputLabel>
             <Select
@@ -125,11 +141,14 @@ export function Create() {
             />
           </FormContainer>
         </ContentContainer>
-
+        <SweetAlert/>
         <ButtonContainer>
           <Button onPress={handleCreateTask} text="Salvar"/>
         </ButtonContainer>
       </Scroll>
     </Container>
   );
-}
+};
+
+
+

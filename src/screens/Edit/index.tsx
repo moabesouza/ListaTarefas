@@ -10,6 +10,8 @@ import { TipoData } from '../../Data/tipo';
 import { StatusData } from '../../Data/status';
 import { useTaskContext } from '../../context/taskContext';
 import { ITarefa } from '../../interfaces/tarefa';
+import ModalMessage from 'react-native-toast-message';
+
 
 export function Edit() {
   const { selectedTask, updateTask } = useTaskContext();
@@ -45,7 +47,14 @@ export function Edit() {
       return;
     }
 
-  
+    ModalMessage.show({
+      type: 'success',
+      text1: 'Sucesso',
+      text2: 'Tarefa editada com sucesso!',
+      visibilityTime: 3000,
+      autoHide: true,
+    });
+
     updateTask(editedTask);
   };
 
@@ -98,7 +107,7 @@ export function Edit() {
             />
           </FormContainer>
         </ContentContainer>
-
+        <ModalMessage/>
         <ButtonContainer>
           <Button onPress={handleSave} text="Salvar"/>
         </ButtonContainer>
