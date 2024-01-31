@@ -4,12 +4,16 @@ import styled from "styled-components/native";
 export const MainFooter = styled.View`
   width: 100%;
   height: 70px;
-  flex-shrink: 0;
+ 
   justify-content: center;
   align-items: center;
   background-color: #FFF;
   border-radius: 25px;
+  elevation: 10; 
 `;
+
+
+
 
 export const SecondaryFooter = styled.View`
   width: 100%;
@@ -23,6 +27,8 @@ export const SecondaryFooter = styled.View`
 export const ButtonCenter = styled.TouchableOpacity`
   border-radius: 30px;
   align-items: center;
+  zIndex: 1;
+  
 `;
 
 export const ButtonLeft = styled.TouchableOpacity`

@@ -7,7 +7,8 @@ export const HeaderStyle = styled.View`
   border-radius: 20px;
   padding: 15px;
   background-color: #FFF;
- 
+
+  elevation: 10; 
   padding-top: ${Platform.OS === 'android' ? 56 : 16}px;
 `;
 
