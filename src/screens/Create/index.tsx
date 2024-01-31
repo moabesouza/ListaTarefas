@@ -85,7 +85,13 @@ export function Create() {
 
       }
     } catch (error) {
-      console.error('Erro ao adicionar tarefa:', error);
+      ModalMessage.show({
+        type: 'error',
+        text1: 'Erro',
+        text2: 'Houve um problema ao cadastrar a tarefa.',
+        visibilityTime: 3000,
+        autoHide: true,
+      });
     }
   };
   
@@ -141,7 +147,7 @@ export function Create() {
             />
           </FormContainer>
         </ContentContainer>
-        <SweetAlert/>
+        <ModalMessage/>
         <ButtonContainer>
           <Button onPress={handleCreateTask} text="Salvar"/>
         </ButtonContainer>
