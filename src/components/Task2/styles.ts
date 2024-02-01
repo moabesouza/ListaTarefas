@@ -2,18 +2,18 @@ import styled from "styled-components/native";
 
 export const Container = styled.SafeAreaView`
   width: 100%;
-  height: 93px;
+  height: 80px;
   justify-content: center;
   align-items: center;
   background-color: #FF004B;
   border-radius: 20px;
-  padding-bottom: 10%;
+  padding-bottom: 5%;
   margin-bottom: 30px;
 `;
 
 export const ContainerSecondary = styled.SafeAreaView`
   width: 100%;
-  height: 60px;
+  height: 31px;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
@@ -25,7 +25,7 @@ export const ContainerSecondary = styled.SafeAreaView`
 
 export const ContainerEnd = styled.SafeAreaView`
   width: 100%;
-  height: 30px;
+  height: 40px;
   flex-direction: row;
   align-items: center;
   background-color: #FFFFFF;

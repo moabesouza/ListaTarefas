@@ -104,17 +104,18 @@ export function Create() {
       <Scroll showsVerticalScrollIndicator={false}>
         <ContentContainer>
  
-          <FormContainer>
+        <FormContainer style={errors.taskName ? { borderColor: 'red' } : {}}>
             <InputLabel>Tarefa</InputLabel>
             <Input
               placeholder="Digite a tarefa"
               value={taskName}
               onChangeText={(text) => setTaskName(text)}
+              style={errors.taskName ? { borderColor: 'red' } : {}}
             />
             <ErrorMessage>{errors.taskName}</ErrorMessage>
           </FormContainer>
          
-          <FormContainer>
+          <FormContainer >
             <InputLabel>Status</InputLabel>
             <Select
               options={[...StatusData]}
@@ -122,11 +123,12 @@ export function Create() {
               valueExtractor={(item) => item.id.toString()}
               selectedValue={selectedStatus}
               onValueChange={(itemValue) => setSelectedStatus(itemValue)}
+              style={errors.selectedStatus ? { borderColor: 'red' } : {}}
             />
             <ErrorMessage>{errors.selectedStatus}</ErrorMessage>
           </FormContainer>
 
-          <FormContainer>
+          <FormContainer >
             <InputLabel>Tipo</InputLabel>
             <Select
               options={[...TipoData]}
@@ -134,6 +136,7 @@ export function Create() {
               valueExtractor={(item) => item.id.toString()}
               selectedValue={selectedTipo}
               onValueChange={(itemValue) => setSelectedTipo(itemValue)}
+              style={errors.selectedTipo ? { borderColor: 'red' } : {}}
             />
             <ErrorMessage>{errors.selectedTipo}</ErrorMessage>
           </FormContainer>

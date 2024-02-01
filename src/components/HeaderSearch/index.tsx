@@ -90,17 +90,21 @@ export const HeaderSearch = () => {
     filterTasks();
   }, [searchQuery, selectedStatus, selectedTipo, tasks, setFilteredTasks]);
 
+  const [isInputFocused, setIsInputFocused] = useState(false);
   return (
     <View>
       <HeaderStyle>
-        <SearchInputContainer>
-          <SearchIcon icon={faSearch} />
-          <SearchInput
-            placeholder="Buscar"
-            value={searchQuery}
-            onChangeText={(text: string) => setSearchQuery(text)}
-          />
-        </SearchInputContainer>
+      <SearchInputContainer style={{ borderColor: isInputFocused || searchQuery.trim() !== '' ? '#646FD4' : '#ccc', borderWidth: 1, borderRadius: 5 }}>
+  <SearchIcon icon={faSearch} />
+  <SearchInput
+    placeholder="Buscar"
+    value={searchQuery}
+    onChangeText={(text: string) => setSearchQuery(text)}
+    onFocus={() => setIsInputFocused(true)}
+    onBlur={() => setIsInputFocused(false)}
+  />
+</SearchInputContainer>
+
 
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
           <ButtonsContainer>

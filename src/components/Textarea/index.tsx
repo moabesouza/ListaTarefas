@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
-import { TextInputProps, ViewStyle } from 'react-native';
-import { StyledTextArea } from './styles'; 
+import { TextInputProps } from 'react-native';
+import { StyledTextArea } from './styles';
 
 interface TextareaProps extends TextInputProps {
   placeholder: string;
   onTextChange?: (text: string) => void;
-  containerStyle?: ViewStyle; 
+  containerStyle?: any; 
 }
 
 export function Textarea({ placeholder, onTextChange, containerStyle, ...rest }: TextareaProps) {
+  const [isTextareaFocused, setIsTextareaFocused] = useState(false);
   const [text, setText] = useState('');
 
   const handleTextChange = (inputText: string) => {
@@ -18,15 +19,27 @@ export function Textarea({ placeholder, onTextChange, containerStyle, ...rest }:
     }
   };
 
+  const handleFocus = () => {
+    setIsTextareaFocused(true);
+  };
+
+  const handleBlur = () => {
+    setIsTextareaFocused(false);
+  };
+
+  const borderColor = isTextareaFocused ? '#646FD4' : '#ccc';
+
   return (
     <>
       <StyledTextArea
         placeholder={placeholder}
         value={text}
         onChangeText={handleTextChange}
-        multiline 
-        numberOfLines={4} 
-        style={containerStyle} 
+        onFocus={handleFocus}
+        onBlur={handleBlur}
+        multiline
+        numberOfLines={4}
+        style={{ borderColor, borderWidth: 1, borderRadius: 5, padding: 10, marginBottom: 10, ...containerStyle }}
         {...rest}
       />
     </>

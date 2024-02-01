@@ -65,8 +65,8 @@ export const Task: React.FC<TaskProps> = ({ taskId }) => {
         </IconsPoint>
       </ContainerSecondary>
       <ContainerEnd>
-        <Feather name="info" size={15} color={statusColor} style={{ marginTop: -30, marginRight: 5 }} />
-        <Text style={{ color: '#4E8D7C', marginTop: -30 }}>
+        <Feather name="info" size={15} color={statusColor} style={{ marginTop: -10, marginRight: 5 }} />
+        <Text style={{ color: '#4E8D7C', marginTop: -10 }}>
           {getStatusDescription(task.status as statusEnum)} - {getTipoDescription(task.tipo as tipoEnum)}
         </Text>
       </ContainerEnd>

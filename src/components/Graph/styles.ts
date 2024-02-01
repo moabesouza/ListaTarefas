@@ -1,14 +1,14 @@
 import styled from "styled-components/native";
 
 export const Container = styled.View`
-  width: 100%;
-  height: 200px;
-  justify-content: center;
-  align-items: center;
-  border-radius: 25px;
-  overflow: hidden;
-  background-color: #fff;
-  margin-top: 20px;
+marginLeft: 10px;
+marginRight: 10px;
+backgroundColor: white;
+padding: 10px;
+borderRadius: 25px;
+marginTop: 20px;
+borderBottomWidth: 1px;
+borderBottomColor: #ddd;
 `;
 
 export const Title = styled.Text`

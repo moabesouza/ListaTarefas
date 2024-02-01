@@ -15,7 +15,9 @@ import ModalMessage from 'react-native-toast-message';
 
 export function Edit() {
   const { selectedTask, updateTask } = useTaskContext();
-  const [editedTask, setEditedTask] = useState<ITarefa>(selectedTask || { id: 0, nome: '', tipo: '', status: '', descricao: '' });
+  const [editedTask, setEditedTask] = useState<ITarefa>(
+    selectedTask || { id: 0, nome: '', tipo: '', status: '', descricao: '' }
+  );
   const [errors, setErrors] = useState({
     nome: '',
     status: '',
@@ -23,17 +25,18 @@ export function Edit() {
   });
 
   useEffect(() => {
-    setEditedTask(selectedTask || { id: 0, nome: '', tipo: '', status: '', descricao: '' });
+    setEditedTask(
+      selectedTask || { id: 0, nome: '', tipo: '', status: '', descricao: '' }
+    );
     setErrors({ nome: '', status: '', tipo: '' });
   }, [selectedTask]);
 
   const handleInputChange = (fieldName: keyof ITarefa, value: string) => {
     setEditedTask((prevTask) => ({ ...prevTask, [fieldName]: value }));
-    setErrors((prevErrors) => ({ ...prevErrors, [fieldName]: '' })); 
+    setErrors((prevErrors) => ({ ...prevErrors, [fieldName]: '' }));
   };
 
   const handleSave = () => {
-  
     if (!editedTask.nome) {
       setErrors((prevErrors) => ({ ...prevErrors, nome: 'Campo obrigatório' }));
       return;
@@ -61,7 +64,7 @@ export function Edit() {
   return (
     <Container>
       <StatusBar translucent backgroundColor="transparent" />
-      <Header title="Editar Tarefa"/>
+      <Header title="Editar Tarefa" />
       <Scroll showsVerticalScrollIndicator={false}>
         <ContentContainer>
           <FormContainer>
@@ -70,6 +73,7 @@ export function Edit() {
               placeholder="Digite a tarefa"
               value={editedTask.nome}
               onChangeText={(text) => handleInputChange('nome', text)}
+              style={{ borderColor: errors.nome ? 'red' : '#ccc' }}
             />
             <ErrorMessage>{errors.nome}</ErrorMessage>
           </FormContainer>
@@ -82,6 +86,7 @@ export function Edit() {
               valueExtractor={(item) => item.id.toString()}
               selectedValue={editedTask.status}
               onValueChange={(itemValue) => handleInputChange('status', itemValue)}
+              style={{ borderColor: errors.status ? 'red' : '#ccc' }}
             />
             <ErrorMessage>{errors.status}</ErrorMessage>
           </FormContainer>
@@ -94,6 +99,7 @@ export function Edit() {
               valueExtractor={(item) => item.id.toString()}
               selectedValue={editedTask.tipo}
               onValueChange={(itemValue) => handleInputChange('tipo', itemValue)}
+              style={{ borderColor: errors.tipo ? 'red' : '#ccc' }}
             />
             <ErrorMessage>{errors.tipo}</ErrorMessage>
           </FormContainer>
@@ -107,9 +113,9 @@ export function Edit() {
             />
           </FormContainer>
         </ContentContainer>
-        <ModalMessage/>
+        <ModalMessage />
         <ButtonContainer>
-          <Button onPress={handleSave} text="Salvar"/>
+          <Button onPress={handleSave} text="Salvar" />
         </ButtonContainer>
       </Scroll>
     </Container>

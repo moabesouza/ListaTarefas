@@ -15,10 +15,9 @@ export const StyledButton = styled.TouchableOpacity`
 
 export const ButtonText = styled.Text`
   color: #FFF;
-  text-align: center;
-  font-feature-settings: 'clig' off, 'liga' off;
+  text-align: center;  
   font-size: 20px;
   font-style: normal;
   font-weight: 400;
-  line-height: 22px; /* 88% */
+  line-height: 22px; 
 `;

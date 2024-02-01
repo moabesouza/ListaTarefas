@@ -8,6 +8,7 @@ interface InputProps extends TextInputProps {
 }
 
 export function Input({ placeholder, onTextChange, ...rest }: InputProps) {
+  const [isInputFocused, setIsInputFocused] = useState(false);
   const [text, setText] = useState('');
 
   const handleTextChange = (inputText: string) => {
@@ -17,12 +18,27 @@ export function Input({ placeholder, onTextChange, ...rest }: InputProps) {
     }
   };
 
+  const handleFocus = () => {
+    setIsInputFocused(true);
+  };
+
+  const handleBlur = () => {
+    setIsInputFocused(false);
+  };
+
   return (
     <>
       <StyledInput
+        style={{
+          borderColor: isInputFocused || text.trim() !== '' ? '#646FD4' : '#ccc',
+          borderWidth: 1,
+          borderRadius: 5,
+        }}
         placeholder={placeholder}
         value={text}
         onChangeText={handleTextChange}
+        onFocus={handleFocus}
+        onBlur={handleBlur}
         {...rest}
       />
     </>

@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { View } from 'react-native';
+import { View, Text } from 'react-native';
 import { PieChart } from 'react-native-chart-kit';
-import { Title } from './styles'; 
+import { Title, Container } from './styles'; 
 import { useTaskContext } from '../../context/taskContext'; 
-import { getStatusColor, getStatusDescription, getTipoDescription } from '../../utils/statusUtils';
-import { statusEnum, tipoEnum } from '../../Enum/enums';
+import { getStatusColor, getStatusDescription } from '../../utils/statusUtils';
+import { statusEnum } from '../../Enum/enums';
 
 interface ChartData {
   name: string;
@@ -50,34 +50,29 @@ export function Graph() {
     calculateStatusDistribution();
   }, [tasks]);
   
-  const containerStyle = {
-    marginLeft: 10,
-    marginRight: 10,
-    backgroundColor: 'white',
-    padding: 10,
-    borderRadius: 25,
-    marginTop: 20,
-    borderBottomWidth: 1,
-    borderBottomColor: '#ddd',
-  };
 
   return (
-    <View style={containerStyle}>
+    <Container>
       <Title style={{ textAlign: 'center', marginBottom: 10 }}>Gráfico por status</Title>
-      <PieChart
-        data={chartData}
-        width={300}
-        height={150}
-        chartConfig={{
-          backgroundGradientFrom: '#1E2923',
-          backgroundGradientTo: '#08130D',
-          color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-        }}
-        accessor="population"
-        backgroundColor="transparent"
-        paddingLeft="20"
-        absolute
-      />
-    </View>
+
+      {tasks.length === 0 ? (
+        <Text style={{ textAlign: 'center', color: '#666' }}>Nenhuma tarefa disponível.</Text>
+      ) : (
+        <PieChart
+          data={chartData}
+          width={320}
+          height={150}
+          chartConfig={{
+            backgroundGradientFrom: '#1E2923',
+            backgroundGradientTo: '#08130D',
+            color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+          }}
+          accessor="population"
+          backgroundColor="transparent"
+          paddingLeft="2"
+          absolute
+        />
+      )}
+    </Container>
   );
 }
