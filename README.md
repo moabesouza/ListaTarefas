@@ -142,7 +142,7 @@ As seguintes ferramentas foram usadas na construção do projeto:
 
 ---
 
-## 👨‍💻 Contribuidores
+## 👨‍💻 Autores
 
 Um praise para a galera que contribuíram neste projeto 👏
 
